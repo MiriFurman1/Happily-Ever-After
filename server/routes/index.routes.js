@@ -1,7 +1,6 @@
 import {Router} from 'express'
-import { getPlants , addPlants} from '../controllers/plants.controller.js'
+import { addNewUser} from '../controllers/users.controller.js'
 
 export const indexRouter=Router()
 
-indexRouter.get('/plants',getPlants)
-indexRouter.post('/plants/add',addPlants)
+indexRouter.post('/register',addNewUser)
