@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-let myUrl="http://localhost:5000/api"
 
+
+let apiUrl = "http://localhost:5000/api";
+if(process.env.NODE_ENV==="production"){
+apiUrl = '/api'
+}
 export const Api=axios.create({
-    baseURL:myUrl,
+    baseURL:apiUrl,
 })

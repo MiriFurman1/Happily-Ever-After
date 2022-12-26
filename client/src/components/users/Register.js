@@ -2,13 +2,11 @@ import React from 'react'
 import "../../style/Forms.css"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
-let apiUrl = "http://localhost:5000/api";
-if(process.env.NODE_ENV){
-apiUrl = '/api'
-}
-console.log(apiUrl);
+import { Api } from '../../api/Api.js';
+
+
+
 export default function Register() {
 	const navigate = useNavigate();
 	const [name,setName]=useState('')
@@ -20,7 +18,7 @@ export default function Register() {
 
 
 		try {
-			const response = await axios.post(`${apiUrl}/register`, {
+			const response = await Api.post('/register', {
 				name,
 				email,
 				password,
