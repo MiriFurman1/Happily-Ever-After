@@ -12,13 +12,11 @@ export const addNewUser = (req, res) => {
             res.send('Error saving user: ' + err);
             return;
         }
-        // const Page = ReactDOMServer.renderToString(<OurWeddingPage user={newUser} />);
-        
-        // res.send(Page);
+// res.redirect ("/ourweddingpage")
     });
 
 
-    // res.render(<OurWeddingPage/>)
+    
 
 
 
