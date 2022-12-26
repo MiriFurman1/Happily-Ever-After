@@ -6,13 +6,12 @@ export const addNewUser = (req, res) => {
         email: req.body.email,
         password: req.body.password
     })
-
     newUser.save((err) => {
         if (err) {
             res.send('Error saving user: ' + err);
             return;
         }
-// res.redirect ("/ourweddingpage")
+        
     });
 
 
