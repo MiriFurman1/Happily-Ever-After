@@ -1,33 +1,40 @@
 import { User } from "../models/user.model.js";
-import ReactDOMServer from 'react-dom/server';
-export const addNewUser = (req, res) => {
-
-    const newUser = new User({
-        email: req.body.email,
-        password: req.body.password
-    })
-    newUser.save((err) => {
-        if (err) {
-            res.send('Error saving user: ' + err);
-            return;
-        }
-        
-    });
 
 
-    
 
+export const addNewUser = async(req, res) => {
 
+    const user = new User(req.body)
+
+    try {
+        await user.save()
+        res.status(201).send(user)
+    } catch (e) {
+        res.status(400).send(e)
+    }
 
 }
 
-export const addPlants = async (req, res) => {
+
+export const  updateUser=async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email', 'password']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
+    }
 
     try {
-        const { body } = req;
-        const newPlant = await Plant.create(body)
-        res.status(201).send(body);
-    } catch (err) {
-        res.send(err.message)
+        const user= await Users
+        // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+    } catch (e) {
+        res.status(400).send(e)
     }
 }

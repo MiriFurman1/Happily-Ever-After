@@ -2,48 +2,50 @@ import React from 'react'
 import "../../style/Forms.css"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-
-const apiUrl = process.env.REACT_APP_API_URL||"http://localhost:5000/api";
+let apiUrl = "http://localhost:5000/api";
+if(process.env.NODE_ENV){
+apiUrl = '/api'
+}
 console.log(apiUrl);
 export default function Register() {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
+	const [name,setName]=useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
 	async function registerUser(event) {
 		event.preventDefault()
 
-		const response = await fetch(`${apiUrl}/register`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
+
+		try {
+			const response = await axios.post(`${apiUrl}/register`, {
+				name,
 				email,
 				password,
-			}),
-		})
-
-		const data = await response.json()
-
-		if (data.status === 'ok') {
-      console.log(data.status);
-			navigate('/')
+			});
+			const data = response.data;
+			if (data) {
+				navigate('/');
+			}
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
-
-  return (
-    <div className='Register'>
-      <h3>Register</h3>
-      <form onSubmit={registerUser}>
-        <label htmlFor='email'>email</label>
-        <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-        <label htmlFor='password'>password</label>
-        <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-        <button type="submit">Register</button>
-      </form>
-    </div>
-  )
-}
+		return (
+			<div className='Register'>
+				<h3>Register</h3>
+				<form onSubmit={registerUser}>
+				<label htmlFor='name'>name</label>
+					<input type="string" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+					<label htmlFor='email'>email</label>
+					<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+					<label htmlFor='password'>password</label>
+					<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+					<button type="submit">Register</button>
+				</form>
+			</div>
+		)
+	}
