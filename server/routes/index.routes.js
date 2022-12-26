@@ -1,8 +1,10 @@
 import {Router} from 'express'
-import { addNewUser,updateUser,loginUser} from '../controllers/users.controller.js'
+import { addNewUser,updateUser,loginUser,getUserProfile} from '../controllers/users.controller.js';
+import auth from "../middleware/auth.js"
 
 export const indexRouter=Router()
 
 indexRouter.post('/register',addNewUser)
-indexRouter.patch('/users/:id', updateUser)
 indexRouter.post('/users/login',loginUser)
+indexRouter.patch('/users/:id',auth, updateUser)
+indexRouter.get('/users/me',auth,getUserProfile)

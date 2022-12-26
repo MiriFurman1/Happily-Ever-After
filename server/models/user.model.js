@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 import validator from 'validator';
 import bcrypt from 'bcryptjs'
-
+import jwt from 'jsonwebtoken';
 const userSchema = new Schema({
     name: {
         type: String,
@@ -25,8 +25,22 @@ const userSchema = new Schema({
         minlength: 8,
         trim: true,
     },
-
+    tokens:[{
+        token:{
+            type:String,
+            required:true
+        }
+    }]
 })
+
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+    const token = jwt.sign({ _id: user._id.toString() }, 'ilovegarfield')
+
+    user.tokens=user.tokens.concat({token})
+    user.save()
+    return token
+}
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
