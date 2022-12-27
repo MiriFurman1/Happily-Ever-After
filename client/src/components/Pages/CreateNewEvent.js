@@ -11,7 +11,7 @@ export default function CreateNewEvent() {
         // Save the form data to a database or do something else with it here
     }
     return (
-        <div>
+        <div className='createNewEventPage'>
             <h3>Just a few details about your wedding</h3>
             <form onSubmit={handleSubmit}>
                 <label>

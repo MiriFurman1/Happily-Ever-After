@@ -25,7 +25,8 @@ export default function Register() {
 			});
 			const data = response.data;
 			if (data) {
-				navigate('/');
+				
+				navigate('/createnewevent');
 			}
 		} catch (error) {
 			console.error(error);
