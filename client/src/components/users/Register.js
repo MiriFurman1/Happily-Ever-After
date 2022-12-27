@@ -2,7 +2,7 @@ import React from 'react'
 import "../../style/Forms.css"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 import { Api } from '../../api/Api.js';
 
 
@@ -24,6 +24,8 @@ export default function Register() {
 				password,
 			});
 			const data = response.data;
+			const token=data.token;
+			Cookies.set('jwt', token, { expires: 7, sameSite: 'strict', httpOnly: true });
 			if (data) {
 				
 				navigate('/createnewevent');

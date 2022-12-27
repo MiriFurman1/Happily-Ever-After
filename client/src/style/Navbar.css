@@ -18,7 +18,7 @@ a{
     padding:0;
     margin-left:10px;
     font-size: 30px;
-    margin-right: 50vw;
+    margin-right: 40vw;
     font-family: 'Allura','cursive';
     color: black;
     text-decoration: none;
@@ -31,4 +31,12 @@ background-color: #EEDCC9;
 border: none;
 text-decoration: none;
 color: black;
+
+
+}
+.NavbarButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

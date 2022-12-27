@@ -6,21 +6,32 @@ import Register from './components/users/Register.js'
 import Login from './components/users/Login.js';
 import CreateNewEvent from './components/Pages/CreateNewEvent'
 import OurWeddingPage from './components/Pages/OurWeddingPage'; 
+import MyAccount from './components/Pages/MyProfile';
+import Logout from './components/Pages/Logout';
 import { Route,Routes } from 'react-router-dom';
+import {useState} from 'react'
+import {createContext} from 'react'
 
+export const UserContext = createContext();
 function App() {
 
+const [userData,setUserData]=useState([])
 
   return (
     <div className="App">
-      <Navbar/>
+      <UserContext.Provider value={{ userData, setUserData}}>
+      <Navbar userData={userData} setUserData={setUserData}/>
       <Routes>
       <Route exact path="/" element={<HomePage/>}/>
       <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<Register/>} />
       <Route path="/createnewevent" element={<CreateNewEvent/>} />
       <Route path="/ourweddingpage" element={<OurWeddingPage/>} />
+      <Route path="/myprofile" element={<MyAccount/>} />
+      <Route path="/logout" element={<Logout/>} />
+      
       </Routes>
+      </UserContext.Provider>
     </div>
   );
 }
