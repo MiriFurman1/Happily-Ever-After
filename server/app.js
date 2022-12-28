@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser'
-
+import multer from 'multer'
 import * as url from 'url'
 import path from 'path';
 
@@ -9,7 +9,6 @@ const __dirname = url.fileURLToPath(new URL('./', import.meta.url))
 
 import { indexRouter } from './routes/index.routes.js'
 const app = express();
-
 
 
 

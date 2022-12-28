@@ -8,10 +8,8 @@ import { Api } from '../api/Api';
 
 export default function Navbar() {
   const [jwt, setJwt] = useState(Cookies.get('jwt'));
-  console.log(jwt);
 
   function handleLogout() {
-    console.log(jwt);
     Api.post(`/users/logout`,{}, {
       headers: {
         Authorization: `Bearer ${jwt}`,
@@ -79,7 +77,11 @@ export default function Navbar() {
 
         {jwt && (<div className='userButtons'>
           <Link to="/myprofile">My Profile</Link>
-          <button  onClick={handleLogout}>Logout</button>
+          <Link to="/todolist">To Do List</Link>
+          <Link to="gallerypage">My Gallery</Link>
+          <Link to="/myevent">My Event</Link>
+          <Link  onClick={handleLogout}>Logout</Link>
+
         </div>)}
       </div>
     </div>

@@ -1,7 +1,13 @@
 import React from 'react'
 
 export default function GalleryPage() {
+  const fileSelectedHandler=(event)=>{
+    console.log(event);
+  }
   return (
-    <div>GalleryPage</div>
+    <div className='GalleryPage'>
+
+      <input type="file" onChange={fileSelectedHandler}/>
+    </div>
   )
 }

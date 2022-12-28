@@ -9,7 +9,7 @@ export default function MyAccount() {
     const [userData, setUserData] = useState(null)
     const jwt = Cookies.get('jwt')
     const navigate = useNavigate();
-    console.log(jwt);
+
 
     useEffect(() => {
         Api.get(`/users/me`, {
@@ -53,6 +53,7 @@ export default function MyAccount() {
                 <h4>Email:{userData.email}</h4>
                 <button >Edit Profile</button>
                 <button onClick={handleDelete}>Delete Profile</button>
+                <button>add new event</button>
             </div>)}
 
         </div>

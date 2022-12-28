@@ -32,7 +32,10 @@ const userSchema = new Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    avatar:{
+        type:Buffer
+    }
 })
 
 userSchema.virtual('tasks', {
@@ -47,6 +50,7 @@ userSchema.methods.toJSON = function () {
 
     delete userObject.password
     delete userObject.tokens
+    delete userObject.avatar
 
     return userObject
 }
