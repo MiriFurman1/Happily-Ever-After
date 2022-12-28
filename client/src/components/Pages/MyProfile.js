@@ -9,6 +9,8 @@ export default function MyAccount() {
     const [userData, setUserData] = useState(null)
     const jwt = Cookies.get('jwt')
     const navigate = useNavigate();
+    console.log(jwt);
+
     useEffect(() => {
         Api.get(`/users/me`, {
             headers: {
@@ -27,18 +29,20 @@ export default function MyAccount() {
     function handleDelete() {
         Api.delete(`/users/me`, {
             headers: {
-                Authorization: `Bearer ${jwt}`,
+               
+                'Authorization':`Bearer ${jwt}`
             },
         })
             .then((response) => {
                 if (response.data) {
+                    localStorage.removeItem('userName');
+                    Cookies.remove('jwt');
                     navigate('/');
                 }
             })
             .catch((error) => {
                 console.error(error);
             });
-
     }
 
     return (

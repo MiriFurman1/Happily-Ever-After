@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateNewEvent() {
+    const navigate = useNavigate();
     const [weddingDate, setWeddingDate] = useState('');
     const [brideName, setBrideName] = useState('');
     const [groomName, setGroomName] = useState('');
@@ -8,7 +10,8 @@ export default function CreateNewEvent() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Save the form data to a database or do something else with it here
+        navigate("/")
+
     }
     return (
         <div className='createNewEventPage'>
@@ -54,7 +57,7 @@ export default function CreateNewEvent() {
                     />
                 </label>
                 <br />
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit"  />
             </form>
         </div>
     )

@@ -15,9 +15,8 @@ export default function Register() {
 
 	async function registerUser(event) {
 		event.preventDefault()
-
-
 		try {
+			
 			const response = await Api.post('/register', {
 				name,
 				email,
@@ -25,9 +24,11 @@ export default function Register() {
 			});
 			const data = response.data;
 			const token=data.token;
-			Cookies.set('jwt', token, { expires: 7, sameSite: 'strict', httpOnly: true });
+			Cookies.set('jwt', token, { expires: 7 });
+			localStorage.setItem('userName',JSON.stringify(data.user.name))
+			const jwt =  Cookies.get('jwt')
+			console.log(jwt);
 			if (data) {
-				
 				navigate('/createnewevent');
 			}
 		} catch (error) {

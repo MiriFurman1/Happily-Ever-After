@@ -7,7 +7,6 @@ import Login from './components/users/Login.js';
 import CreateNewEvent from './components/Pages/CreateNewEvent'
 import OurWeddingPage from './components/Pages/OurWeddingPage'; 
 import MyAccount from './components/Pages/MyProfile';
-import Logout from './components/Pages/Logout';
 import { Route,Routes } from 'react-router-dom';
 import {useState} from 'react'
 import {createContext} from 'react'
@@ -28,7 +27,6 @@ const [userData,setUserData]=useState([])
       <Route path="/createnewevent" element={<CreateNewEvent/>} />
       <Route path="/ourweddingpage" element={<OurWeddingPage/>} />
       <Route path="/myprofile" element={<MyAccount/>} />
-      <Route path="/logout" element={<Logout/>} />
       
       </Routes>
       </UserContext.Provider>
