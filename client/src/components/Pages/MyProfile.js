@@ -41,7 +41,9 @@ export default function MyAccount() {
 
         fetch(`${apiUrl}/users/me/avatar`, requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => 
+                navigate('/')
+                )
             .catch(error => console.log('error', error));
     }
 
@@ -98,8 +100,6 @@ export default function MyAccount() {
                 <img src={imgUrl} alt=""></img>
                 <h4>Name: {userData.name}</h4>
                 <h4>Email:{userData.email}</h4>
-                
-                
                 <button >Edit Profile</button>
                 <button onClick={handleDelete}>Delete Profile</button>
                 <button>add new event</button>

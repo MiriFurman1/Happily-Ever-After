@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { Api } from '../api/Api';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [jwt, setJwt] = useState(Cookies.get('jwt'));
 
   function handleLogout() {
@@ -20,7 +22,7 @@ export default function Navbar() {
         console.log(response);
         localStorage.removeItem('userName');
         Cookies.remove('jwt')
-        
+        navigate("/")
       })
       .catch((error) => {
         console.error(error);

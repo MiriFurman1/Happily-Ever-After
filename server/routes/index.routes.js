@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { addNewUser, updateUser, loginUser, logout, logoutAll, getUserProfile, deleteUser } from '../controllers/users.controller.js';
 import { createTask, getAllTasks, getSpecificTask, updateTask, deleteTask } from '../controllers/tasks.controller.js'
+import {createNewWedding,getWedding,updateWedding,deleteWedding} from '../controllers/wedding.controller.js'
 import auth from "../middleware/auth.js"
 import multer from 'multer'
 import sharp from 'sharp'
@@ -77,3 +78,10 @@ indexRouter.get('/tasks', auth, getAllTasks)
 indexRouter.get('/tasks/:id', auth, getSpecificTask)
 indexRouter.patch('/tasks/:id', auth, updateTask)
 indexRouter.delete('/tasks/:id', auth, deleteTask)
+
+
+//event
+indexRouter.post('/mywedding',auth,createNewWedding)
+indexRouter.get('/mywedding',auth,getWedding)
+indexRouter.patch('/mywedding',auth,updateWedding)
+indexRouter.delete('/mywedding',auth,deleteWedding)

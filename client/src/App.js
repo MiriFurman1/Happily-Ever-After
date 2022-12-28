@@ -8,7 +8,7 @@ import CreateNewEvent from './components/Pages/CreateNewEvent'
 import OurWeddingPage from './components/Pages/OurWeddingPage'; 
 import MyAccount from './components/Pages/MyProfile';
 import GalleryPage from './components/Pages/GalleryPage'
-import EventPage from './components/Pages/EventPage'
+import MyEvent from './components/Pages/MyEvent'
 import TodoPage from './components/Pages/TodoPage'
 import { Route,Routes } from 'react-router-dom';
 import {useState} from 'react'
@@ -31,7 +31,7 @@ const [userData,setUserData]=useState([])
       <Route path="/ourweddingpage" element={<OurWeddingPage/>} />
       <Route path="/myprofile" element={<MyAccount/>} />
       <Route path="/gallerypage" element={<GalleryPage/>} />
-      <Route path="/myevent" element={<EventPage/>}/>
+      <Route path="/myevent" element={<MyEvent/>}/>
       <Route path="/todolist" element={<TodoPage/>}/>
       
       </Routes>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 export default function CreateNewEvent() {
     const navigate = useNavigate();
@@ -7,10 +9,55 @@ export default function CreateNewEvent() {
     const [brideName, setBrideName] = useState('');
     const [groomName, setGroomName] = useState('');
     const [location, setLocation] = useState('');
+    const [guestsNum, setGuestsNum] = useState('');
 
-    const handleSubmit = (event) => {
+    let apiUrl = "http://localhost:5000/api";
+    if (process.env.NODE_ENV === "production") {
+        apiUrl = '/api'
+    }
+
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        navigate("/")
+        const jwt = Cookies.get('jwt')
+        // const weddingData = {
+        //     brideName: brideName,
+        //     groomName: groomName,
+        //     weddingDate: weddingDate,
+        //     location: location,
+        //     guestsNum: guestsNum
+        // }
+
+        var data = JSON.stringify({
+            brideName: brideName,
+            groomName: groomName,
+            weddingDate: weddingDate,
+            guestNum: guestsNum,
+            location: location,
+            
+        });
+        console.log(`${apiUrl}/mywedding`)
+        console.log(data);
+        var config = {
+            method: 'post',
+            url: `${apiUrl}/mywedding`,
+            headers: {
+                'Authorization': `Bearer ${jwt}`,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                navigate("/");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
 
     }
     return (
@@ -56,8 +103,17 @@ export default function CreateNewEvent() {
                         onChange={(event) => setLocation(event.target.value)}
                     />
                 </label>
+                <label>
+                    Number of guests:
+                    <input
+                        type="text"
+                        name="guestsNum"
+                        value={guestsNum}
+                        onChange={(event) => setGuestsNum(event.target.value)}
+                    />
+                </label>
                 <br />
-                <input type="submit" value="Submit"  />
+                <input type="submit" value="Submit" />
             </form>
         </div>
     )
