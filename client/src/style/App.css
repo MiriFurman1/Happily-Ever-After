@@ -11,3 +11,10 @@
 }
 
 
+button{
+  padding: 5px;
+  margin: 5px;
+  background-color: #C6C3C0;
+  border: 1px black solid;
+}
+

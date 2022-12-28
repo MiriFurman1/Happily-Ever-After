@@ -24,7 +24,9 @@ const weddingSchema = new mongoose.Schema({
     images: [{
         image: {
             type: Buffer,
+            contentType:String
         }
+        
     }],
     owner: {
         type: mongoose.Schema.Types.ObjectId,

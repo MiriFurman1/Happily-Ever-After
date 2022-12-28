@@ -16,7 +16,7 @@ export const getWedding= async (req,res)=>{
     try {
         const wedding = await Wedding.find({ owner: req.user._id })
 
-        if (!wedding) {
+        if (wedding.length===0) {
             return res.status(404).send()
         }
 

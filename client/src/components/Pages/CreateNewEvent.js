@@ -20,13 +20,6 @@ export default function CreateNewEvent() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const jwt = Cookies.get('jwt')
-        // const weddingData = {
-        //     brideName: brideName,
-        //     groomName: groomName,
-        //     weddingDate: weddingDate,
-        //     location: location,
-        //     guestsNum: guestsNum
-        // }
 
         var data = JSON.stringify({
             brideName: brideName,
@@ -36,8 +29,7 @@ export default function CreateNewEvent() {
             location: location,
             
         });
-        console.log(`${apiUrl}/mywedding`)
-        console.log(data);
+
         var config = {
             method: 'post',
             url: `${apiUrl}/mywedding`,
