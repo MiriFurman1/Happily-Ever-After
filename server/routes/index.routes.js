@@ -22,7 +22,7 @@ indexRouter.delete('/users/me', auth, deleteUser)
 //user avatar
 const upload = multer({
     limits: {
-        fileSize: 1000000
+        fileSize: 5 * 1000 * 1000
     },
     fileFilter(req, file, cb) {
         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -35,8 +35,11 @@ const upload = multer({
 
 
 indexRouter.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
+    if (!req.file || !req.file.buffer) {
+  return res.status(400).send({ error: 'No file was provided' });
+}
 
-    const buffer=await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
+const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
     req.user.avatar = buffer
     await req.user.save()
     res.send()
