@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 export default function CreateNewEvent() {
     const navigate = useNavigate();
+    const [jwt, setJwt] = useState(Cookies.get('jwt'));
     const [weddingDate, setWeddingDate] = useState('');
     const [brideName, setBrideName] = useState('');
     const [groomName, setGroomName] = useState('');
     const [location, setLocation] = useState('');
     const [guestsNum, setGuestsNum] = useState('');
+
+
+    useEffect(() => {
+        if (!jwt) {
+            navigate("/")
+        }
+    }, [jwt,navigate])
 
     let apiUrl = "http://localhost:5000/api";
     if (process.env.NODE_ENV === "production") {
@@ -19,7 +27,7 @@ export default function CreateNewEvent() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const jwt = Cookies.get('jwt')
+
 
         var data = JSON.stringify({
             brideName: brideName,
@@ -27,7 +35,7 @@ export default function CreateNewEvent() {
             weddingDate: weddingDate,
             guestNum: guestsNum,
             location: location,
-            
+
         });
 
         var config = {
@@ -42,7 +50,8 @@ export default function CreateNewEvent() {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                console.log(JSON.stringify(response.data._id));
+                localStorage.setItem('eventId', JSON.stringify(response.data._id))
                 navigate("/");
             })
             .catch(function (error) {

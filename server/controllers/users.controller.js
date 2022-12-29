@@ -1,5 +1,5 @@
 import { User } from "../models/user.model.js";
-
+import sharp from 'sharp'
 
 
 export const addNewUser = async (req, res) => {
@@ -82,3 +82,29 @@ export const deleteUser= async (req, res) => {
 }
 
 
+export const uploadAvatar =async (req, res) => {
+    if (!req.file || !req.file.buffer) {
+  return res.status(400).send({ error: 'No file was provided' });
+}
+
+const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
+console.log(req.user);
+    req.user.avatar = buffer
+    await req.user.save()
+    res.send()
+}
+
+export const getAvatar=async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+
+        if (!user || !user.avatar) {
+            throw new Error()
+        }
+
+        res.set('Content-Type', 'image/png')
+        res.send(user.avatar)
+    } catch (e) {
+        res.status(404).send()
+    }
+}

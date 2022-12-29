@@ -1,9 +1,11 @@
 import { Router } from 'express'
-import { addNewUser, updateUser, loginUser, logout, logoutAll, getUserProfile, deleteUser } from '../controllers/users.controller.js';
+import { addNewUser, updateUser, loginUser, logout, logoutAll, getUserProfile, deleteUser,  uploadAvatar,getAvatar} from '../controllers/users.controller.js';
 import { createTask, getAllTasks, getSpecificTask, updateTask, deleteTask } from '../controllers/tasks.controller.js'
-import {createNewWedding,getWedding,updateWedding,deleteWedding} from '../controllers/wedding.controller.js'
-import {addImage} from '../controllers/gallery.controller.js'
+import {createNewWedding,getWedding,updateWedding,deleteWedding,uploadImage} from '../controllers/wedding.controller.js'
+
+
 import auth from "../middleware/auth.js"
+import upload from "../middleware/upload.js"
 import multer from 'multer'
 import sharp from 'sharp'
 import { User } from "../models/user.model.js";
@@ -22,33 +24,10 @@ indexRouter.delete('/users/me', auth, deleteUser)
 
 
 //user avatar
-const upload = multer({
-    limits: {
-        fileSize: 5 * 1000 * 1000
-    },
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-            return cb(new Error('Please upload an image'))
-        }
 
-        cb(undefined, true)
-    }
-})
-
-
-indexRouter.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
-    if (!req.file || !req.file.buffer) {
-  return res.status(400).send({ error: 'No file was provided' });
-}
-
-const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
-    req.user.avatar = buffer
-    await req.user.save()
-    res.send()
-}, (error, req, res, next) => {
+indexRouter.post('/users/me/avatar', auth, upload.single('avatar'), uploadAvatar, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })
-
 
 indexRouter.delete('/users/me/avatar', auth, async (req, res) => {
     req.user.avatar = undefined
@@ -57,20 +36,7 @@ indexRouter.delete('/users/me/avatar', auth, async (req, res) => {
 })
 
 
-indexRouter.get('/users/:id/avatar', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id)
-
-        if (!user || !user.avatar) {
-            throw new Error()
-        }
-
-        res.set('Content-Type', 'image/png')
-        res.send(user.avatar)
-    } catch (e) {
-        res.status(404).send()
-    }
-})
+indexRouter.get('/users/:id/avatar',getAvatar)
 
 
 //to-do list
@@ -88,4 +54,54 @@ indexRouter.patch('/mywedding',auth,updateWedding)
 indexRouter.delete('/mywedding',auth,deleteWedding)
 
 //gallery routes
-indexRouter.post('/add/photo',addImage)
+
+indexRouter.post('/gallery/uploadimage/:eventid', upload.array('images',12), uploadImage, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+
+
+// const upload = multer({
+//     limits: {
+//         fileSize: 5 * 1000 * 1000,
+//     },
+//     fileFilter(req, file, cb) {
+//         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+//             return cb(new Error('Please upload an image file'));
+//         }
+//         cb(undefined, true);
+//     },
+// });
+
+// indexRouter.post('/add/image', upload.array('photos'), async (req, res) => {
+//     try {
+//         if (!req.files || !req.files.length) {
+//             return res.status(400).send({ error: 'No files were provided' });
+//         }
+
+//         // loop through the uploaded files
+//         for (const file of req.files) {
+//             // resize and convert the image data to PNG format
+//             const buffer = await sharp(file.buffer)
+//                 .resize({ width: 1500, height: 1000 })
+//                 .jpeg()
+//                 .toBuffer();
+
+
+//             const gallery = new Gallery({
+//                 // user: req.user._id,
+//                 // wedding: req.wedding._id,
+//                 photo: {
+//                     data: buffer,
+//                     contentType: 'image/jpeg',
+//                 },
+//             });
+
+//             await gallery.save();
+//         }
+
+//         res.send();
+//     } catch (error) {
+//         res.status(400).send({ error: error.message });
+//     }
+// });

@@ -30,7 +30,7 @@ const [userData,setUserData]=useState([])
       <Route path="/createnewevent" element={<CreateNewEvent/>} />
       <Route path="/ourweddingpage" element={<OurWeddingPage/>} />
       <Route path="/myprofile" element={<MyAccount/>} />
-      <Route path="/gallerypage" element={<GalleryPage/>} />
+      <Route path="/gallerypage/:eventid" element={<GalleryPage/>} />
       <Route path="/myevent" element={<MyEvent/>}/>
       <Route path="/todolist" element={<TodoPage/>}/>
       

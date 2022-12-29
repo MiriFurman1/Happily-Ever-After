@@ -1,5 +1,5 @@
 import {Wedding} from "../models/wedding.model.js"
-
+import sharp from 'sharp'
 export const createNewWedding= async (req,res)=>{
     const wedding = new Wedding({...req.body,
         owner: req.user._id})
@@ -59,20 +59,40 @@ try{
 }
 
 
+export const uploadImage =async (req, res) => {
+    const eventId=req.params.eventId
 
+    const weddingOld = await Wedding.findOne({ id: eventId });
+  var images = weddingOld.images;
+    // console.log(wedding);
+    // console.log();
+    // console.log(req.files);
 
-export const deleteTask = async (req, res) => {
-    try {
-        console.log(req.params.id);
-        console.log(req.user._id);
-        const task = await Task.findOneAndDelete({_id:req.params.id,owner:req.user._id})
-
-        if (!task) {
-            res.status(404).send()
-        }
-
-        res.send(task)
-    } catch (e) {
-        res.status(500).send()
-    }
+    if (!req.files ) {
+  return res.status(400).send({ error: 'No file was provided' });
 }
+console.log("milky");
+
+// const buffer = await sharp(req.files.buffer).resize({ width: 1500, height: 1000 }).jpeg().toBuffer();
+for(var i=0 ; i<req.files.length;i++){
+
+    const buffer = await sharp(req.files[i].buffer)
+      .resize({ width: 1500, height: 1000 })
+      .jpeg()
+      .toBuffer();
+    //   console.log(buffer);
+    // Add the processed image to the existing array
+     images.push(buffer);
+   
+}
+     const wedding = await Wedding.findOneAndUpdate({ id: eventId },{images:images})
+  console.log(images.length);
+    // wedding.images = buffer
+    // console.log(wedding);
+       
+    res.send(wedding)
+}
+
+
+
+

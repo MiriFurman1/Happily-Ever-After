@@ -5,11 +5,14 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { Api } from '../api/Api';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios'
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [jwt, setJwt] = useState(Cookies.get('jwt'));
+  const [userName, setUserName] = useState(localStorage.getItem('userName'));
+  const [eventId,setEventId]=useState(null)
+
 
   function handleLogout() {
     Api.post(`/users/logout`,{}, {
@@ -17,7 +20,6 @@ export default function Navbar() {
         Authorization: `Bearer ${jwt}`,
       },
     })
-
     .then((response) => {
         console.log(response);
         localStorage.removeItem('userName');
@@ -30,10 +32,37 @@ export default function Navbar() {
   }
 
 
+let apiUrl = "http://localhost:5000/api";
+if(process.env.NODE_ENV==="production"){
+apiUrl = '/api'
+}
 
 
-  const [userName, setUserName] = useState(localStorage.getItem('userName'));
+useEffect(() => {
+  var data = '';
 
+  var config = {
+      method: 'get',
+      url: `${apiUrl}/mywedding`,
+      headers: {
+          'Authorization': `Bearer ${jwt}`
+      },
+      data: data
+  };
+
+  axios(config)
+      .then(function (response) {
+        setEventId(response.data[0]._id)
+        Cookies.set('eventId', response.data[0]._id)
+          console.log(response.data[0]._id);
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+
+}, [apiUrl, jwt])
+
+//get userName and refresh
   useEffect(() => {
     const interval = setInterval(() => {
       const newUserName = localStorage.getItem('userName');
@@ -47,7 +76,7 @@ export default function Navbar() {
     };
   }, [userName]);
 
-  
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -64,6 +93,7 @@ export default function Navbar() {
     };
   }, [jwt]);
 
+const eventUrl = `gallerypage/${eventId}`
   return (
     <div className='Navbar'>
 
@@ -80,7 +110,7 @@ export default function Navbar() {
         {jwt && (<div className='userButtons'>
           <Link to="/myprofile">My Profile</Link>
           <Link to="/todolist">To Do List</Link>
-          <Link to="gallerypage">My Gallery</Link>
+          <Link to={eventUrl}>My Gallery</Link>
           <Link to="/myevent">My Event</Link>
           <Link  onClick={handleLogout}>Logout</Link>
 

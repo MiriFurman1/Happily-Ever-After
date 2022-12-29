@@ -23,6 +23,10 @@ export default function MyAccount() {
     const fileSelectedHandler = async (event) => {
         console.log(event.target.files[0]);
         setSelectedFile(event.target.files[0])
+
+    }
+
+    const handleUploadImage=()=>{
         const fd = new FormData();
         fd.append('image', selectedFile)
 
@@ -30,7 +34,7 @@ export default function MyAccount() {
         myHeaders.append("Authorization", `Bearer ${jwt}`);
 
         var formdata = new FormData();
-        formdata.append("avatar", event.target.files[0]);
+        formdata.append("avatar", selectedFile);
 
         var requestOptions = {
             method: 'POST',
@@ -46,15 +50,10 @@ export default function MyAccount() {
                 )
             .catch(error => console.log('error', error));
     }
-
-
+    
     const openUpload = () => {
         setIsUploading(prev => !prev)
     }
-
-
-
-
 
     useEffect(() => {
         Api.get(`/users/me`, {
@@ -92,7 +91,9 @@ export default function MyAccount() {
         userData&&setImgUrl(`${apiUrl}/users/${userData._id}/avatar`)
     },[ userData,apiUrl])
     
-
+    const addNewEvent=()=>{
+        navigate('/createnewevent')
+    }
     return (
         <div className='MyProfile'>
             {userData && (<div>
@@ -102,10 +103,12 @@ export default function MyAccount() {
                 <h4>Email:{userData.email}</h4>
                 <button >Edit Profile</button>
                 <button onClick={handleDelete}>Delete Profile</button>
-                <button>add new event</button>
+                <button onClick={addNewEvent}>add new event</button>
                 <button onClick={openUpload}>upload a profile picture</button>
+                
                 {isUploading ? (<div>
                     <input type="file" onChange={fileSelectedHandler} />
+                    <button onClick={handleUploadImage}> upload</button>
                 </div>) : ""}
 
             </div>)}
