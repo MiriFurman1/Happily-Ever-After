@@ -13,7 +13,7 @@ import TodoPage from './components/Pages/TodoPage'
 import { Route,Routes } from 'react-router-dom';
 import {useState} from 'react'
 import {createContext} from 'react'
-
+import Sidebar from './components/SideBar'
 export const UserContext = createContext();
 function App() {
 
@@ -21,8 +21,11 @@ const [userData,setUserData]=useState([])
 
   return (
     <div className="App">
+      <div className="App" id="outer-container">
       <UserContext.Provider value={{ userData, setUserData}}>
       <Navbar userData={userData} setUserData={setUserData}/>
+      <div id="page-wrap">
+      <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
       <Routes>
       <Route exact path="/" element={<HomePage/>}/>
       <Route path="/login" element={<Login/>} />
@@ -35,7 +38,9 @@ const [userData,setUserData]=useState([])
       <Route path="/todolist" element={<TodoPage/>}/>
       
       </Routes>
+      </div>
       </UserContext.Provider>
+    </div>
     </div>
   );
 }

@@ -88,7 +88,7 @@ export const uploadAvatar =async (req, res) => {
 }
 
 const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
-console.log(req.user);
+// console.log(req.user);
     req.user.avatar = buffer
     await req.user.save()
     res.send()

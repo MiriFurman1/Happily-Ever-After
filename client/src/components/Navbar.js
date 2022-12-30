@@ -24,6 +24,7 @@ export default function Navbar() {
         console.log(response);
         localStorage.removeItem('userName');
         Cookies.remove('jwt')
+        
         navigate("/")
       })
       .catch((error) => {
@@ -39,28 +40,30 @@ apiUrl = '/api'
 
 
 useEffect(() => {
-  var data = '';
+  if(jwt){
 
-  var config = {
-      method: 'get',
-      url: `${apiUrl}/mywedding`,
-      headers: {
-          'Authorization': `Bearer ${jwt}`
-      },
-      data: data
-  };
+    var data = '';
+    var config = {
+        method: 'get',
+        url: `${apiUrl}/mywedding`,
+        headers: {
+            'Authorization': `Bearer ${jwt}`
+        },
+        data: data
+    };
+  
+    axios(config)
+        .then(function (response) {
+          setEventId(response.data[0]._id)
+          Cookies.set('eventId', response.data[0]._id)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  }
+  
 
-  axios(config)
-      .then(function (response) {
-        setEventId(response.data[0]._id)
-        Cookies.set('eventId', response.data[0]._id)
-          console.log(response.data[0]._id);
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-
-}, [apiUrl, jwt])
+}, [apiUrl, jwt,navigate])
 
 //get userName and refresh
   useEffect(() => {

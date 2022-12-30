@@ -1,42 +1,34 @@
-import { Buffer } from 'buffer';
+
 import { useEffect, useState } from 'react';
 import '../../style/GalleryPage.css'
-import {MyGallery} from './MyGallery.js'
+import { MyGallery } from './MyGallery.js'
+import Cookies from 'js-cookie'
 
 
+let apiUrl = "http://localhost:5000/api";
+if (process.env.NODE_ENV === "production") {
+  apiUrl = '/api'
+}
 
-  let apiUrl = "http://localhost:5000/api";
-    if (process.env.NODE_ENV === "production") {
-      apiUrl = '/api'}
-    
 function GalleryPage() {
-  const [eventId]=useState(window.location.pathname.slice(13))
+  const [eventId] = useState(window.location.pathname.slice(13))
   const [fileList, setFileList] = useState(null);
-  const [imageArray,setImageArray]=useState([])
-  const [imgUrl,setImgUrl]=useState([])
-  const [numOfImg,setNumOfImg]=useState(0)
+  const [numOfImg, setNumOfImg] = useState(0)
+  const [jwt] = useState(Cookies.get('jwt'));
+  const [siteLink] =useState(window.location.href)
+    useEffect(() => {
 
-useEffect(()=>{
-  
-  fetch(`${apiUrl}/gallery/${eventId}`, {
-    method: 'GET'
-  })
-    .then((res) => res.json())
-    .then((data) => {console.log(data.length)
-      setNumOfImg(data.length)})
-    .catch((err) => console.error(err));
+      fetch(`${apiUrl}/gallery/${eventId}`, {
+        method: 'GET'
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.length)
+          setNumOfImg(data.length)
+        })
+        .catch((err) => console.error(err));
 
-},[eventId])
-
-
-
-
-useEffect(() => {
-  if (imageArray && imageArray.length !== 0) {
-    const imgUrls = imageArray.map(imageBuffer => new Buffer.from(imageBuffer).toString("base64"));
-    setImgUrl(imgUrls);
-  }
-}, [imageArray]);
+    }, [eventId])
 
 
   const handleFileChange = (e) => {
@@ -60,9 +52,11 @@ useEffect(() => {
       body: data,
     })
       .then((res) => res.json())
-      .then((data) => {console.log(data)
-        
-        window.location.reload()})
+      .then((data) => {
+        console.log(data)
+
+        window.location.reload()
+      })
       .catch((err) => console.error(err));
   };
 
@@ -70,21 +64,28 @@ useEffect(() => {
   const files = fileList ? [...fileList] : [];
 
 
-  let images=[]
+  let images = []
 
-  for(let i=0;i<numOfImg;i++){
-    let obj={original:`${apiUrl}/images/${eventId}/${i}`,
-    thumbnail:`${apiUrl}/images/${eventId}/${i}`}
+  for (let i = 0; i < numOfImg; i++) {
+    let obj = {
+      original: `${apiUrl}/images/${eventId}/${i}`,
+      thumbnail: `${apiUrl}/images/${eventId}/${i}`,
+      originalWidth: "400"
+    }
     images.push(obj)
   }
 
-
+  
   return (
     <div className='GalleryPage'>
+
       <input type="file" onChange={handleFileChange} multiple />
       <button onClick={handleUploadClick}>Upload</button>
-
-{numOfImg!==0&&<MyGallery images={images}/>}
+      {jwt && (<div className='card'>
+        <p>Send this link to your guests </p>
+        <a href={siteLink}>{siteLink}</a>
+      </div>)}
+      {numOfImg !== 0 && <MyGallery images={images} />}
 
     </div>
   );

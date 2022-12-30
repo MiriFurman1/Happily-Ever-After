@@ -10,10 +10,19 @@ export default function MyAccount() {
     const [userData, setUserData] = useState(null)
     const [selectedFile, setSelectedFile] = useState(null)
     const [isUploading, setIsUploading] = useState(false)
-    const [imgUrl,setImgUrl]=useState("")
+    const [imgUrl, setImgUrl] = useState("")
+    // const [eventId,setEventId]=useState()
+    const [editForm,setEditForm]=useState(false)
+    const [name,setName]=useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
     const jwt = Cookies.get('jwt')
+    const eventId = Cookies.get('eventId')
+    console.log(eventId);
     const navigate = useNavigate();
+
+
 
     let apiUrl = "http://localhost:5000/api";
     if (process.env.NODE_ENV === "production") {
@@ -21,12 +30,11 @@ export default function MyAccount() {
     }
 
     const fileSelectedHandler = async (event) => {
-        console.log(event.target.files[0]);
+        // console.log(event.target.files[0]);
         setSelectedFile(event.target.files[0])
-
     }
 
-    const handleUploadImage=()=>{
+    const handleUploadImage = () => {
         const fd = new FormData();
         fd.append('image', selectedFile)
 
@@ -45,12 +53,12 @@ export default function MyAccount() {
 
         fetch(`${apiUrl}/users/me/avatar`, requestOptions)
             .then(response => response.text())
-            .then(result => 
+            .then(result =>
                 navigate('/')
-                )
+            )
             .catch(error => console.log('error', error));
     }
-    
+
     const openUpload = () => {
         setIsUploading(prev => !prev)
     }
@@ -81,6 +89,7 @@ export default function MyAccount() {
                 if (response.data) {
                     localStorage.removeItem('userName');
                     Cookies.remove('jwt');
+                    Cookies.remove('eventId');
                     navigate('/');
                 }
             })
@@ -89,33 +98,47 @@ export default function MyAccount() {
             });
     }
 
+    function handleEdit() {
+        setEditForm(prev=>!prev)
+    }
 
-    useEffect(()=>{
-        (userData&&userData.avatar!=="")&&setImgUrl(`${apiUrl}/users/${userData._id}/avatar`)
-    },[ userData,apiUrl])
-    
-    const addNewEvent=()=>{
+    useEffect(() => {
+        (userData && userData.avatar !== "") && setImgUrl(`${apiUrl}/users/${userData._id}/avatar`)
+    }, [userData, apiUrl])
+
+    const addNewEvent = () => {
         navigate('/createnewevent')
     }
     return (
         <div className='MyProfile'>
             {userData && (<div>
                 <h3>My profile</h3>
-                {imgUrl&&<img src={imgUrl} alt="" width="200"></img>}
+                {imgUrl && <img src={imgUrl} alt="" width="200"></img>}
                 <h4>Name: {userData.name}</h4>
                 <h4>Email:{userData.email}</h4>
-                <button >Edit Profile</button>
+                <button onClick={handleEdit}>Edit Profile</button>
                 <button onClick={handleDelete}>Delete Profile</button>
-                <button onClick={addNewEvent}>add new event</button>
+                {!eventId && <button onClick={addNewEvent}>add new event</button>}
                 <button onClick={openUpload}>upload a profile picture</button>
-                
+
                 {isUploading ? (<div>
                     <input type="file" onChange={fileSelectedHandler} />
                     <button onClick={handleUploadImage}> upload</button>
                 </div>) : ""}
 
             </div>)}
-
+{editForm&&(
+    <form>
+        <h5>Edit your profile</h5>
+        <label htmlFor='name'>name</label>
+					<input type="string" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+					<label htmlFor='email'>email</label>
+					<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+					<label htmlFor='password'>password</label>
+					<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+					<button type="submit">Register</button>
+    </form>
+)}
         </div>
     )
 }

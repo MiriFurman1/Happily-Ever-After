@@ -65,3 +65,16 @@
     text-align: center;
   }
   
+
+  @media(max-width:500px){
+    .image-bg {
+      height:100vh;
+    }
+
+    .image-bg h1{
+      top:10%
+    }
+    .image-bg p{
+      top:25%
+    }
+  }
