@@ -52,7 +52,7 @@ export default function CreateNewEvent() {
             .then(function (response) {
                 console.log(JSON.stringify(response.data._id));
                 localStorage.setItem('eventId', JSON.stringify(response.data._id))
-                navigate("/");
+                navigate("/myevent");
             })
             .catch(function (error) {
                 console.log(error);

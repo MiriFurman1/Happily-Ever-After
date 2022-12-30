@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { addNewUser, updateUser, loginUser, logout, logoutAll, getUserProfile, deleteUser,  uploadAvatar,getAvatar} from '../controllers/users.controller.js';
 import { createTask, getAllTasks, getSpecificTask, updateTask, deleteTask } from '../controllers/tasks.controller.js'
-import {createNewWedding,getWedding,updateWedding,deleteWedding,uploadImage, getImages} from '../controllers/wedding.controller.js'
+import {createNewWedding,getWedding,updateWedding,deleteWedding,uploadImage, getImages,getImageOne} from '../controllers/wedding.controller.js'
 
 
 import auth from "../middleware/auth.js"
@@ -51,6 +51,7 @@ indexRouter.get('/mywedding',auth,getWedding)
 indexRouter.patch('/mywedding',auth,updateWedding)
 indexRouter.delete('/mywedding',auth,deleteWedding)
 
+
 //gallery routes
 
 indexRouter.post('/gallery/uploadimage/:eventid', upload.array('images',12), uploadImage, (error, req, res, next) => {
@@ -58,4 +59,4 @@ indexRouter.post('/gallery/uploadimage/:eventid', upload.array('images',12), upl
 })
 
 indexRouter.get('/gallery/:eventid',getImages)
-
+indexRouter.get('/images/:eventid/:index',getImageOne)

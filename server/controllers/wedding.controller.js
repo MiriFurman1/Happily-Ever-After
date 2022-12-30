@@ -106,3 +106,20 @@ export const getImages=async (req, res) => {
     }
 }
 
+
+export const getImageOne=async (req, res) => {
+    const eventId = req.params.eventid
+    const index = req.params.index
+    console.log(eventId);
+    try {
+        const wedding = await Wedding.findById({ _id: eventId })
+        if (!wedding || !wedding.images) {
+            throw new Error()
+        }
+
+        res.set('Content-Type', 'image/jpeg')
+        res.send(wedding.images[index])
+    } catch (e) {
+        res.status(404).send()
+    }
+}

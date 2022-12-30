@@ -108,3 +108,4 @@ export const getAvatar=async (req, res) => {
         res.status(404).send()
     }
 }
+

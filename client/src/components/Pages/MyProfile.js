@@ -88,8 +88,10 @@ export default function MyAccount() {
                 console.error(error);
             });
     }
+
+
     useEffect(()=>{
-        userData&&setImgUrl(`${apiUrl}/users/${userData._id}/avatar`)
+        (userData&&userData.avatar!=="")&&setImgUrl(`${apiUrl}/users/${userData._id}/avatar`)
     },[ userData,apiUrl])
     
     const addNewEvent=()=>{
@@ -99,7 +101,7 @@ export default function MyAccount() {
         <div className='MyProfile'>
             {userData && (<div>
                 <h3>My profile</h3>
-                <img src={imgUrl} alt=""></img>
+                {imgUrl&&<img src={imgUrl} alt="" width="200"></img>}
                 <h4>Name: {userData.name}</h4>
                 <h4>Email:{userData.email}</h4>
                 <button >Edit Profile</button>
