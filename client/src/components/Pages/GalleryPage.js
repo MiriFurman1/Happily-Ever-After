@@ -5,6 +5,7 @@ import { MyGallery } from './MyGallery.js'
 import Cookies from 'js-cookie'
 
 
+
 let apiUrl = "http://localhost:5000/api";
 if (process.env.NODE_ENV === "production") {
   apiUrl = '/api'
@@ -15,6 +16,7 @@ function GalleryPage() {
   const [fileList, setFileList] = useState(null);
   const [numOfImg, setNumOfImg] = useState(0)
   const [jwt] = useState(Cookies.get('jwt'));
+  const [urlEncoded,setUrlEncoded]=useState(null)
   const [siteLink] =useState(window.location.href)
     useEffect(() => {
 
@@ -75,6 +77,10 @@ function GalleryPage() {
     images.push(obj)
   }
 
+useEffect(()=>{
+  setUrlEncoded(`http://api.qrserver.com/v1/create-qr-code/?data=${encodeURI(siteLink)}&size=200x200`) 
+
+},[siteLink])
   
   return (
     <div className='GalleryPage'>
@@ -82,9 +88,15 @@ function GalleryPage() {
       <input type="file" onChange={handleFileChange} multiple />
       <button onClick={handleUploadClick}>Upload</button>
       {jwt && (<div className='card'>
-        <p>Send this link to your guests </p>
+        <p>Please share this link with your guests to allow them to upload photos from your wedding:  </p>
         <a href={siteLink}>{siteLink}</a>
+        {urlEncoded&&<div className='QRDiv'>
+          <p>Alternatively, you can print the following code and provide it to your guests so they can easily upload their photos</p>
+      <img src={urlEncoded} alt="" width="200px"></img>
+      </div>}
       </div>)}
+      
+
       {numOfImg !== 0 && <MyGallery images={images} />}
 
     </div>

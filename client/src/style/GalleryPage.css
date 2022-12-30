@@ -29,4 +29,12 @@
 	border: 1px black solid;
 	padding: 10px;
 	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.QRDiv{
+	width:200px
 }
