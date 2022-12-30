@@ -64,6 +64,7 @@ export default function MyAccount() {
             .then((response) => {
                 const userProfile = response.data;
                 setUserData(userProfile);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.error(error);

@@ -23,6 +23,7 @@ export default function Login() {
 			const token=data.token;
 			Cookies.set('jwt', token, { expires: 7, sameSite: 'strict', httpOnly: true });
 			localStorage.setItem('userName',JSON.stringify(data.user.name))
+			console.log(data.user.name);
 
 			if (data) {
 				navigate('/');

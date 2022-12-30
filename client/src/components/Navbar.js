@@ -93,7 +93,7 @@ useEffect(() => {
     };
   }, [jwt]);
 
-const eventUrl = `gallerypage/${eventId}`
+const galleryUrl = `gallerypage/${eventId}`
   return (
     <div className='Navbar'>
 
@@ -110,8 +110,11 @@ const eventUrl = `gallerypage/${eventId}`
         {jwt && (<div className='userButtons'>
           <Link to="/myprofile">My Profile</Link>
           <Link to="/todolist">To Do List</Link>
-          <Link to={eventUrl}>My Gallery</Link>
+          {eventId&&(<div className='eventButtons'>
+            <Link to={galleryUrl}>My Gallery</Link>
           <Link to="/myevent">My Event</Link>
+            </div>)}
+
           <Link  onClick={handleLogout}>Logout</Link>
 
         </div>)}
