@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function CreateNewEvent() {
     const navigate = useNavigate();
-    const [jwt, setJwt] = useState(Cookies.get('jwt'));
+    const [jwt] = useState(Cookies.get('jwt'));
     const [weddingDate, setWeddingDate] = useState('');
     const [brideName, setBrideName] = useState('');
     const [groomName, setGroomName] = useState('');

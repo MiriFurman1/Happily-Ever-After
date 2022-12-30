@@ -1,7 +1,7 @@
 import { Buffer } from 'buffer';
 import { useEffect, useState } from 'react';
 import '../../style/GalleryPage.css'
-import {useNavigate} from 'react-router-dom'
+
 
 
 
@@ -10,11 +10,11 @@ import {useNavigate} from 'react-router-dom'
       apiUrl = '/api'}
     
 function GalleryPage() {
-  const [eventId,setEventId]=useState(window.location.pathname.slice(13))
+  const [eventId]=useState(window.location.pathname.slice(13))
   const [fileList, setFileList] = useState(null);
   const [imageArray,setImageArray]=useState([])
   const [imgUrl,setImgUrl]=useState([])
-const navigate=useNavigate()
+
 useEffect(()=>{
   
   fetch(`${apiUrl}/gallery/${eventId}`, {
@@ -68,14 +68,14 @@ useEffect(() => {
   const files = fileList ? [...fileList] : [];
 
   return (
-    <div>
+    <div className='GalleryPage'>
      {/* <img src={`data:image/png;base64,${imgUrl}`} alt=""/> */}
    
       <input type="file" onChange={handleFileChange} multiple />
       <button onClick={handleUploadClick}>Upload</button>
       <div className='image-grid'>
       {imgUrl.map((imgUrl, index) => (
-  <img key={index} src={`data:image/png;base64,${imgUrl}`} alt="" width="200px"/>
+  <img key={index} src={`data:image/png;base64,${imgUrl}`} alt=""/>
 ))}
 </div>
     </div>
