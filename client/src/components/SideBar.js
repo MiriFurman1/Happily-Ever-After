@@ -120,8 +120,9 @@ export default function SideBar() {
 
                         {jwt && (<div >
                             <Link to="/myprofile">My Profile</Link>
-                            <Link to="/todolist">To Do List</Link>
+                            
                             {eventId && (<div >
+                                <Link to="/todolist">To Do List</Link>
                                 <Link to={galleryUrl}>My Gallery</Link>
                                 <Link to="/myevent">My Event</Link>
                             </div>)}

@@ -1,40 +1,65 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
-.GalleryPage{
-    max-width: 100vw;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+
+.GalleryPage {
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
 }
 
 .GalleryPage img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.image-grid {
-	display: grid;
-	gap: 0.5rem;
-	grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+.GalleryPage input[type="file"] {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.GalleryPage a{
-	color: brown;
+.GalleryPage button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.GalleryPage .card{
-	width: 40vw;
-	border: 1px black solid;
-	padding: 10px;
-	margin: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+.GalleryPage a {
+  color: rgb(66, 56, 113);
 }
 
-.QRDiv{
-	width:200px
+.GalleryPage .card {
+  width: 50vw;
+  background-color: rgb(186, 183, 183);
+  border-radius: 1vw;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.QRDiv {
+  width: 200px;
 }

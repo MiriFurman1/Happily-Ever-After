@@ -85,16 +85,18 @@ useEffect(()=>{
   return (
     <div className='GalleryPage'>
 
-      <input type="file" onChange={handleFileChange} multiple />
-      <button onClick={handleUploadClick}>Upload</button>
       {jwt && (<div className='card'>
         <p>Please share this link with your guests to allow them to upload photos from your wedding:  </p>
         <a href={siteLink}>{siteLink}</a>
         {urlEncoded&&<div className='QRDiv'>
-          <p>Alternatively, you can print the following code and provide it to your guests so they can easily upload their photos</p>
+          <p>Or just you can print the following code and provide it to your guests so they can easily upload their photos</p>
       <img src={urlEncoded} alt="" width="200px"></img>
       </div>}
       </div>)}
+
+      <input type="file" onChange={handleFileChange} multiple />
+      <button onClick={handleUploadClick}>Upload</button>
+
       
 
       {numOfImg !== 0 && <MyGallery images={images} />}

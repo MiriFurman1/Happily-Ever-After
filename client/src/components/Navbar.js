@@ -112,8 +112,9 @@ const galleryUrl = `gallerypage/${eventId}`
 
         {jwt && (<div className='userButtons'>
           <Link to="/myprofile">My Profile</Link>
-          <Link to="/todolist">To Do List</Link>
+          
           {eventId&&(<div className='eventButtons'>
+          <Link to="/todolist">To Do List</Link>
             <Link to={galleryUrl}>My Gallery</Link>
           <Link to="/myevent">My Event</Link>
             </div>)}
