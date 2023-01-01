@@ -109,6 +109,7 @@ export default function MyAccount() {
     const addNewEvent = () => {
         navigate('/createnewevent')
     }
+    
     return (
         <div className='MyProfile'>
             {userData && (<div>
@@ -136,7 +137,8 @@ export default function MyAccount() {
 					<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
 					<label htmlFor='password'>password</label>
 					<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-					<button type="submit">Register</button>
+					<button type="submit">confirm</button>
+                    <button>cancel</button>
     </form>
 )}
         </div>

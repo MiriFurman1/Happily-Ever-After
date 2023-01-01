@@ -63,6 +63,8 @@
     max-height:30px;
 }
 
+.button-confirm,
+.button-cancel,
 .button-complete,
 .button-delete,
 .button-edit{
@@ -120,4 +122,9 @@ justify-content: center;
 .container li{
   display: flex;
   justify-content: space-between;
+}
+
+
+.edit-list{
+  background-color: #697394;
 }

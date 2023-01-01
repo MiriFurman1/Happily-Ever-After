@@ -44,7 +44,7 @@ export const getSpecificTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['description', 'completed']
+    const allowedUpdates = ['description', 'completed','category']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
