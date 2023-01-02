@@ -8,6 +8,7 @@
   align-items: center;
   text-align: center;
   padding: 20px;
+  background: linear-gradient(to right bottom, #efeaea, #b7a9b7);
 }
 
 .GalleryPage img {
@@ -29,7 +30,7 @@
   margin-bottom: 20px;
   padding: 10px 20px;
   border: none;
-  background-color: #333;
+  background-color: rgb(78, 76, 76);
   color: #fff;
   border-radius: 5px;
   font-size: 16px;
@@ -41,8 +42,8 @@
 }
 
 .GalleryPage .card {
-  width: 50vw;
-  background-color: rgb(186, 183, 183);
+  width: 65vw;
+  height: 50vh;
   border-radius: 1vw;
   padding: 10px;
   margin: 10px;
@@ -53,9 +54,13 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
+  border: 1px dotted black;
   overflow: hidden;
 }
-
+.GalleryPage .card img {
+  height: 200px;
+  width: 200px;
+}
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }

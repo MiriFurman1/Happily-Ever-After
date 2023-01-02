@@ -24,6 +24,7 @@ export default function Navbar() {
         console.log(response);
         localStorage.removeItem('userName');
         Cookies.remove('jwt')
+        Cookies.remove('eventId')
         
         navigate("/")
       })

@@ -11,7 +11,6 @@ export default function MyAccount() {
     const [selectedFile, setSelectedFile] = useState(null)
     const [isUploading, setIsUploading] = useState(false)
     const [imgUrl, setImgUrl] = useState("")
-    // const [eventId,setEventId]=useState()
     const [editForm, setEditForm] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -34,6 +33,17 @@ export default function MyAccount() {
     }
 
     const handleUploadImage = () => {
+        Api.delete(`/users/me/avatar`, {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            },
+        })
+            .then((response) => {
+                setImgUrl(null);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         const fd = new FormData();
         fd.append('image', selectedFile)
 
@@ -105,38 +115,23 @@ export default function MyAccount() {
         (userData && userData.avatar !== "") && setImgUrl(`${apiUrl}/users/${userData._id}/avatar`)
     }, [userData, apiUrl])
 
-    const addNewEvent = () => {
-        navigate('/createnewevent')
-    }
 
-    function handleDeleteImage() {
-        Api.delete(`/users/me/avatar`, {
-            headers: {
-                'Authorization': `Bearer ${jwt}`
-            },
-        })
-            .then((response) => {
-                setImgUrl(null);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
+
+
     return (
         <div className='MyProfile'>
             {userData && (<div>
                 <h3>My profile</h3>
-                {(imgUrl&&userData.avatar!=="" )&& (
+                {console.log(userData)}
+                {(imgUrl && userData.avatar !== "") && (
                     <div>
-                        <img src={imgUrl} alt="Profile" />
-                        <button onClick={handleDeleteImage}>Delete Image</button>
+                        <img src={imgUrl} alt="" />
                     </div>
                 )}
                 <h4>Name: {userData.name}</h4>
                 <h4>Email:{userData.email}</h4>
                 <button onClick={handleEdit}>Edit Profile</button>
                 <button onClick={handleDelete}>Delete Profile</button>
-                {!eventId && <button onClick={addNewEvent}>add new event</button>}
                 <button onClick={openUpload}>upload a profile picture</button>
 
                 {isUploading ? (<div>

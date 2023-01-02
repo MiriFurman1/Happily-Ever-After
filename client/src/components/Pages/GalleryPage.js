@@ -16,21 +16,21 @@ function GalleryPage() {
   const [fileList, setFileList] = useState(null);
   const [numOfImg, setNumOfImg] = useState(0)
   const [jwt] = useState(Cookies.get('jwt'));
-  const [urlEncoded,setUrlEncoded]=useState(null)
-  const [siteLink] =useState(window.location.href)
-    useEffect(() => {
+  const [urlEncoded, setUrlEncoded] = useState(null)
+  const [siteLink] = useState(window.location.href)
+  useEffect(() => {
 
-      fetch(`${apiUrl}/gallery/${eventId}`, {
-        method: 'GET'
+    fetch(`${apiUrl}/gallery/${eventId}`, {
+      method: 'GET'
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.length)
+        setNumOfImg(data.length)
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.length)
-          setNumOfImg(data.length)
-        })
-        .catch((err) => console.error(err));
+      .catch((err) => console.error(err));
 
-    }, [eventId])
+  }, [eventId])
 
 
   const handleFileChange = (e) => {
@@ -77,29 +77,30 @@ function GalleryPage() {
     images.push(obj)
   }
 
-useEffect(()=>{
-  setUrlEncoded(`http://api.qrserver.com/v1/create-qr-code/?data=${encodeURI(siteLink)}&size=200x200`) 
+  useEffect(() => {
+    setUrlEncoded(`http://api.qrserver.com/v1/create-qr-code/?data=${encodeURI(siteLink)}&size=200x200`)
 
-},[siteLink])
-  
+  }, [siteLink])
+
   return (
     <div className='GalleryPage'>
-
+      {numOfImg !== 0 && <MyGallery images={images} />}
+      <input type="file" onChange={handleFileChange} multiple />
+      <button onClick={handleUploadClick}>Upload</button>
       {jwt && (<div className='card'>
         <p>Please share this link with your guests to allow them to upload photos from your wedding:  </p>
         <a href={siteLink}>{siteLink}</a>
-        {urlEncoded&&<div className='QRDiv'>
+        {urlEncoded && <div className='QRDiv'>
           <p>Or just you can print the following code and provide it to your guests so they can easily upload their photos</p>
-      <img src={urlEncoded} alt="" width="200px"></img>
-      </div>}
+          <img src={urlEncoded} alt="" width="200px"></img>
+        </div>}
       </div>)}
 
-      <input type="file" onChange={handleFileChange} multiple />
-      <button onClick={handleUploadClick}>Upload</button>
 
-      
 
-      {numOfImg !== 0 && <MyGallery images={images} />}
+
+
+
 
     </div>
   );

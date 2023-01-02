@@ -20,9 +20,9 @@ export default function Login() {
 				password,
 			});
 			const data = response.data;
-			const token=data.token;
-			Cookies.set('jwt', token,{ expires: 7 });
-			localStorage.setItem('userName',JSON.stringify(data.user.name))
+			const token = data.token;
+			Cookies.set('jwt', token, { expires: 7 });
+			localStorage.setItem('userName', JSON.stringify(data.user.name))
 			console.log(data.user.name);
 
 			if (data) {
@@ -35,15 +35,16 @@ export default function Login() {
 	return (
 		<div className='LoginPage'>
 
-
-			<h3>Login</h3>
-			<form onSubmit={loginUser}>
-				<label htmlFor='email'>email</label>
-				<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-				<label htmlFor='password'>password</label>
-				<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-				<button type="submit">Login</button>
-			</form>
+			<div className='LoginDiv'>
+				<h3>Login</h3>
+				<form onSubmit={loginUser}>
+					<label htmlFor='email'>email</label>
+					<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+					<label htmlFor='password'>password</label>
+					<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+					<button type="submit">Login</button>
+				</form>
+			</div>
 		</div>
 	)
 }

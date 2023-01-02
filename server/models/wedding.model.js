@@ -2,25 +2,27 @@ import mongoose, { Schema, model } from 'mongoose'
 
 const weddingSchema = new mongoose.Schema({
     brideName: {
-        type: String,
-        required: true
+        type: String
     },
     groomName: {
-        type: String,
-        required: true
+        type: String
     },
     weddingDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     location: {
-        type: String,
-        required: true
+        type: String
     },
-    guestNum: {
-        type: Number,
-        required: true
-    },
+    // guestNum: {
+    //     type: Number
+    // },
+    guests:[{
+        name:String,
+        email:String,
+        numberOfGuests: Number,
+        side:String
+    }],
+
     images: [Buffer],
     owner: {
         type: mongoose.Schema.Types.ObjectId,

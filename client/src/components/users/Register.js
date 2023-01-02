@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Api } from '../../api/Api.js';
-
+import axios from 'axios'
 
 
 export default function Register() {
@@ -12,9 +12,13 @@ export default function Register() {
 	const [name,setName]=useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-
-	async function registerUser(event) {
-		event.preventDefault()
+	
+    let apiUrl = "http://localhost:5000/api";
+    if (process.env.NODE_ENV === "production") {
+        apiUrl = '/api'
+    }
+	async function registerUser(e) {
+		e.preventDefault()
 		try {
 			
 			const response = await Api.post('/register', {
@@ -29,7 +33,35 @@ export default function Register() {
 			const jwt =  Cookies.get('jwt')
 			console.log(jwt);
 			if (data) {
-				navigate('/createnewevent');
+				var body= JSON.stringify({
+					brideName:"",
+					groomName: "",
+					weddingDate: "",
+					guestNum: "",
+					location: "",
+		
+				});
+		
+				var config = {
+					method: 'post',
+					url: `${apiUrl}/mywedding`,
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+						'Content-Type': 'application/json'
+					},
+					data: body
+				};
+		
+				axios(config)
+					.then(function (response) {
+						console.log(JSON.stringify(response.data._id));
+						localStorage.setItem('eventId', JSON.stringify(response.data._id))
+						
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
+					navigate("/myevent");
 			}
 		} catch (error) {
 			console.error(error);
@@ -38,6 +70,7 @@ export default function Register() {
 
 		return (
 			<div className='Register'>
+				<div className='RegisterDiv'>
 				<h3>Register</h3>
 				<form onSubmit={registerUser}>
 				<label htmlFor='name'>name</label>
@@ -48,6 +81,7 @@ export default function Register() {
 					<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
 					<button type="submit">Register</button>
 				</form>
+			</div>
 			</div>
 		)
 	}

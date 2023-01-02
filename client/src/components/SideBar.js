@@ -26,6 +26,7 @@ export default function SideBar() {
                 localStorage.removeItem('userName');
                 Cookies.remove('jwt')
                 Cookies.remove('eventId');
+                
                 navigate("/")
             })
             .catch((error) => {
