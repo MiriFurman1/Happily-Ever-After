@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser'
-import multer from 'multer'
 import * as url from 'url'
 import path from 'path';
 

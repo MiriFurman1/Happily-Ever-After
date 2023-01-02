@@ -12,10 +12,10 @@ export default function MyAccount() {
     const [isUploading, setIsUploading] = useState(false)
     const [imgUrl, setImgUrl] = useState("")
     // const [eventId,setEventId]=useState()
-    const [editForm,setEditForm]=useState(false)
-    const [name,setName]=useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+    const [editForm, setEditForm] = useState(false)
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const jwt = Cookies.get('jwt')
     const eventId = Cookies.get('eventId')
@@ -30,7 +30,6 @@ export default function MyAccount() {
     }
 
     const fileSelectedHandler = async (event) => {
-        // console.log(event.target.files[0]);
         setSelectedFile(event.target.files[0])
     }
 
@@ -54,7 +53,7 @@ export default function MyAccount() {
         fetch(`${apiUrl}/users/me/avatar`, requestOptions)
             .then(response => response.text())
             .then(result =>
-                navigate('/')
+                window.location.reload(false)
             )
             .catch(error => console.log('error', error));
     }
@@ -99,7 +98,7 @@ export default function MyAccount() {
     }
 
     function handleEdit() {
-        setEditForm(prev=>!prev)
+        setEditForm(prev => !prev)
     }
 
     useEffect(() => {
@@ -109,12 +108,30 @@ export default function MyAccount() {
     const addNewEvent = () => {
         navigate('/createnewevent')
     }
-    
+
+    function handleDeleteImage() {
+        Api.delete(`/users/me/avatar`, {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            },
+        })
+            .then((response) => {
+                setImgUrl(null);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
     return (
         <div className='MyProfile'>
             {userData && (<div>
                 <h3>My profile</h3>
-                {imgUrl && <img src={imgUrl} alt="" width="200"></img>}
+                {(imgUrl&&userData.avatar!=="" )&& (
+                    <div>
+                        <img src={imgUrl} alt="Profile" />
+                        <button onClick={handleDeleteImage}>Delete Image</button>
+                    </div>
+                )}
                 <h4>Name: {userData.name}</h4>
                 <h4>Email:{userData.email}</h4>
                 <button onClick={handleEdit}>Edit Profile</button>
@@ -128,19 +145,19 @@ export default function MyAccount() {
                 </div>) : ""}
 
             </div>)}
-{editForm&&(
-    <form>
-        <h5>Edit your profile</h5>
-        <label htmlFor='name'>name</label>
-					<input type="string" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
-					<label htmlFor='email'>email</label>
-					<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-					<label htmlFor='password'>password</label>
-					<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-					<button type="submit">confirm</button>
+            {editForm && (
+                <form>
+                    <h5>Edit your profile</h5>
+                    <label htmlFor='name'>name</label>
+                    <input type="string" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                    <label htmlFor='email'>email</label>
+                    <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                    <label htmlFor='password'>password</label>
+                    <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                    <button type="submit">confirm</button>
                     <button>cancel</button>
-    </form>
-)}
+                </form>
+            )}
         </div>
     )
 }

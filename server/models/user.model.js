@@ -3,6 +3,8 @@ import validator from 'validator';
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken';
 import { Task } from "./task.model.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const userSchema = new Schema({
     name: {
@@ -57,7 +59,7 @@ userSchema.methods.toJSON = function () {
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, 'ilovegarfield')
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
 
     user.tokens = user.tokens.concat({ token })
     user.save()
