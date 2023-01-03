@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { addNewUser, updateUser, loginUser, logout, logoutAll, getUserProfile, deleteUser,  uploadAvatar,getAvatar} from '../controllers/users.controller.js';
 import { createTask, getAllTasks, getSpecificTask, updateTask, deleteTask } from '../controllers/tasks.controller.js'
 import {createNewWedding,getWedding,updateWedding,deleteWedding,uploadImage, getImages,getImageOne} from '../controllers/wedding.controller.js'
-
+import { sendGuestEmails } from '../emails/sendGuestEmail.js';
 
 import auth from "../middleware/auth.js"
 import upload from "../middleware/upload.js"
@@ -60,3 +60,8 @@ indexRouter.post('/gallery/uploadimage/:eventid', upload.array('images',12), upl
 
 indexRouter.get('/gallery/:eventid',getImages)
 indexRouter.get('/images/:eventid/:index',getImageOne)
+
+
+//send emails
+indexRouter.post('/send-emails', auth, sendGuestEmails)
+// indexRouter.post('/send-emails',sendGuestEmails)

@@ -4,6 +4,8 @@ import axios from 'axios';
 import '../../style/MyEvent.css'
 import { useNavigate } from 'react-router-dom';
 import Modal from '../Modal/modal.js'
+import {Link} from 'react-router-dom'
+
 
 export default function MyEvent() {
 
@@ -19,6 +21,7 @@ export default function MyEvent() {
     const [modal, setModal] = useState(false);
     const [currentGuest, setCurrentGuest] = useState({})
     const [guests, setGuests] = useState([]);
+    
 
     const toggleModal = (guest) => {
         setCurrentGuest(guest)
@@ -53,15 +56,20 @@ export default function MyEvent() {
         axios(config)
             .then(function (response) {
                 setEvent(response.data[0])
-                console.log(response.data[0]);
                 setBrideName(response.data[0].brideName)
                 setGroomName(response.data[0].groomName)
-                setWeddingDate(response.data[0].weddingDate.slice(0, 10))
+                setWeddingDate((prev)=>{
+                    if(response.data[0].weddingDate){
+                        response.data[0].weddingDate.slice(0, 10)
+                    }
+                    else{
+                        return "2023-01-01"
+                    }
+                })
                 setLocation(response.data[0].location)
                 setBrideGuests(response.data[0].guests.filter(guest => guest.side === 'bride'))
                 setGroomGuests(response.data[0].guests.filter(guest => guest.side === 'groom'))
                 setGuests(response.data[0].guests)
-                console.log(response.data[0].guests.filter(guest => guest.side === 'bride'))
             })
             .catch(function (error) {
                 console.log(error);
@@ -198,7 +206,7 @@ export default function MyEvent() {
 
                     <button type="submit" value="Submit">Save</button>
                     <button onClick={() => toggleModal()}>Add guests</button>
-                    <button onClick={() => { navigate("/sendemails") }}>Send emails to your guests </button>
+                    <Link to="/sendemails" state={event} className="link"><button>Send emails to your guests</button></Link>
                 </form>
 
                 <div>

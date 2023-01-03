@@ -56,18 +56,54 @@ export default function Register() {
 					.then(function (response) {
 						console.log(JSON.stringify(response.data._id));
 						localStorage.setItem('eventId', JSON.stringify(response.data._id))
-						
+						if(response){
+							addUserTasks()
+						}
 					})
 					.catch(function (error) {
 						console.log(error);
 					});
-					navigate("/myevent");
+					
 			}
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
+	const addUserTasks=()=>{
+
+	const tasks=[{"description":"Find Your Venue","category":"4 months to go"},{"description":"Start Planning Your Guest List","category":"4 months to go"},{"description":"Set A Budget","category":"4 months to go"},
+	{"description":"Find A Florist","category":"3 months to go"},{"description":"Plan Your Hair And Makeup","category":"3 months to go"},
+	{"description":"Send Out Invitations","category":"2 months to go"},{"description":"Make Your Sitting Chart","category":"2 months to go"},
+	{"description":"Have a Final Dress Fitting","category":"1 months to go"},
+	{"description":"Confirm Everything","category":"1 week to go"},
+	{"description":"Enjoy","category":"Wedding Day"}]
+	const jwt =  Cookies.get('jwt')
+	tasks.forEach((task)=>{
+		var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${jwt}`);
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "description": task.description,
+            "category": task.category
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch(`${apiUrl}/tasks`, requestOptions)
+            .then(response => response.text())
+            .then(result => {console.log(result)
+			navigate('/')})
+            .catch(error => console.log('error', error));
+
+	})
+	}
 		return (
 			<div className='Register'>
 				<div className='RegisterDiv'>

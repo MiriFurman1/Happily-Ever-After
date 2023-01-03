@@ -6,7 +6,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: linear-gradient(to right bottom, #efeaea, #b7a9b7)
+    background: linear-gradient(to right bottom, #efeaea, #b7a9b7);
+    background-image: url("../../public/images/heart-g51c67945c_1920.jpg");
 }
 
 .MyEvent button{

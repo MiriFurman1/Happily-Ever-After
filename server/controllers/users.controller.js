@@ -85,6 +85,7 @@ export const deleteUser= async (req, res) => {
 
 
 export const uploadAvatar =async (req, res) => {
+   
     if (!req.file || !req.file.buffer) {
   return res.status(400).send({ error: 'No file was provided' });
 }

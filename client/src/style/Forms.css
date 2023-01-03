@@ -9,13 +9,28 @@
   display: flex;
   justify-content: center;
 }
+
+.EmailPage{
+  background-image: url("../../public/images/flowers-g6cfb0fae7_1920.jpg");
+}
 .LoginPage form,
-.Register form,
-.EmailPage form{
+.Register form{
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 2.5rem;
+}
+
+.EmailPage form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+.EmailPage form textarea {
+  width: 30vw;
+  height: 10vw;
+  padding: 10px;
 }
 
 .LoginPage input,
@@ -27,7 +42,8 @@
 }
 
 .LoginDiv,
-.RegisterDiv {
+.RegisterDiv,
+.EmailDiv {
   background-color: #e8e3ec;
   margin-top: 10vh;
   width: 30vw;
@@ -38,6 +54,11 @@
   justify-content: center;
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.EmailDiv {
+  height: 70vh;
+  width: 40vw;
+
 }
 
 .LoginPage button,
