@@ -99,7 +99,7 @@ export default function MyEvent() {
             console.error(error);
         }
     }
-
+    console.log(event);
 
 
     return (
