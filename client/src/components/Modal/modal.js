@@ -200,13 +200,13 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
               <label>
                 Side: &nbsp;
                 <select
-
                   type="name"
                   name="side"
                   value={side}
                   onChange={(event) => setSide(event.target.value)}
                 >
-                  <option value="bride">Bride</option>
+                  <option value="" selected disabled hidden>Choose here</option>
+                  <option value="bride" >Bride</option>
                   <option value="groom">Groom</option>
                 </select>
               </label>

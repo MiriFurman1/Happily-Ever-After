@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../Modal/modal.js'
 
 export default function MyEvent() {
+
     const navigate = useNavigate();
     const [jwt] = useState(Cookies.get('jwt'));
     const [event, setEvent] = useState(null);
@@ -60,6 +61,7 @@ export default function MyEvent() {
                 setBrideGuests(response.data[0].guests.filter(guest => guest.side === 'bride'))
                 setGroomGuests(response.data[0].guests.filter(guest => guest.side === 'groom'))
                 setGuests(response.data[0].guests)
+                console.log(response.data[0].guests.filter(guest => guest.side === 'bride'))
             })
             .catch(function (error) {
                 console.log(error);
@@ -70,7 +72,6 @@ export default function MyEvent() {
 
 
     const updateWedding = async (e) => {
-        console.log(event);
         e.preventDefault()
         try {
 
@@ -138,7 +139,7 @@ export default function MyEvent() {
                     </div>
                     <div className='iconDiv'>
                         <label>
-                            Bride's Name: &nbsp;
+                            Name: &nbsp;
                             <input
                                 type="text"
                                 name="brideName"
@@ -149,7 +150,7 @@ export default function MyEvent() {
                         <br />
 
                         <label>
-                            Groom's Name: &nbsp;
+                            Name: &nbsp;
                             <input
                                 type="text"
                                 name="groomName"
@@ -163,6 +164,7 @@ export default function MyEvent() {
 
                         <label>
                             Bride Guests:
+                            {console.log(guests)}
                             {brideGuests && brideGuests.map((guest) => {
                                 return <input
                                     type="text"
@@ -172,9 +174,9 @@ export default function MyEvent() {
 
                                 />
                             })}
-                            <label>
+                            {/* <label>
                                 number of guests :{brideGuests.length}
-                            </label>
+                            </label> */}
                         </label>
                         <label>
                             Groom Guests:
@@ -187,9 +189,9 @@ export default function MyEvent() {
 
                                 />
                             })}
-                            <label>
+                            {/* <label>
                                 number of guests :{groomGuests.length}
-                            </label>
+                            </label> */}
                         </label>
 
                     </div>
