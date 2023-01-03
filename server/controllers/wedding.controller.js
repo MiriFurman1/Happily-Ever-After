@@ -31,8 +31,6 @@ export const getWedding = async (req, res) => {
 
 export const updateWedding = async (req, res) => {
     const updates = Object.keys(req.body)
-    console.log(updates);
-    console.log(req.user.id);
     try {
         const wedding = await Wedding.findOne({ owner: req.user.id })
         if (!wedding) {

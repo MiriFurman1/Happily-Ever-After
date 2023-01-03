@@ -1,5 +1,6 @@
 .LoginPage,
-.Register {
+.Register,
+.EmailPage {
   max-width: 100vw;
   height: 94.5vh;
   overflow-y: hidden;
@@ -9,7 +10,8 @@
   justify-content: center;
 }
 .LoginPage form,
-.Register form{
+.Register form,
+.EmailPage form{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +19,8 @@
 }
 
 .LoginPage input,
-.Register input{
+.Register input
+.EmailPage input{
   background-color: #dbd7de;
   padding: 5px;
   border-radius: 5px;
@@ -38,7 +41,8 @@
 }
 
 .LoginPage button,
-.RegisterDiv button {
+.RegisterDiv button,
+.EmailPage button {
   margin-top: 5vh;
   width: 150px;
   height: 40px;

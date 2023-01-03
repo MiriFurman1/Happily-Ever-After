@@ -13,9 +13,17 @@ export default function MyEvent() {
     const [brideName, setBrideName] = useState('');
     const [groomName, setGroomName] = useState('');
     const [location, setLocation] = useState('');
-    const [isEditing, setIsEditing] = useState(true)
     const [brideGuests, setBrideGuests] = useState([])
     const [groomGuests, setGroomGuests] = useState([])
+    const [modal, setModal] = useState(false);
+    const [currentGuest, setCurrentGuest] = useState({})
+    const [guests, setGuests] = useState([]);
+
+    const toggleModal = (guest) => {
+        setCurrentGuest(guest)
+        setModal(!modal);
+    };
+
 
     useEffect(() => {
         if (!jwt) {
@@ -51,6 +59,7 @@ export default function MyEvent() {
                 setLocation(response.data[0].location)
                 setBrideGuests(response.data[0].guests.filter(guest => guest.side === 'bride'))
                 setGroomGuests(response.data[0].guests.filter(guest => guest.side === 'groom'))
+                setGuests(response.data[0].guests)
             })
             .catch(function (error) {
                 console.log(error);
@@ -85,7 +94,6 @@ export default function MyEvent() {
 
             const response = await axios(config);
             console.log(response.data);
-            setIsEditing(false)
         } catch (error) {
             console.error(error);
         }
@@ -95,10 +103,12 @@ export default function MyEvent() {
 
     return (
         <div className='MyEvent'>
-            <Modal/>
+            <Modal modal={modal} toggleModal={toggleModal} currentGuest={currentGuest} guests={guests} />
             <div className='EventDiv'>
+
                 <h3>Just a few details about your wedding</h3>
-                {isEditing ? (<form onSubmit={updateWedding}>
+
+                <form onSubmit={updateWedding}>
                     <label>
                         Wedding Date: &nbsp;
                         <input
@@ -109,26 +119,9 @@ export default function MyEvent() {
                         />
                     </label>
                     <br />
-                    <label>
-                        Bride's Name: &nbsp;
-                        <input
-                            type="text"
-                            name="brideName"
-                            value={brideName}
-                            onChange={(event) => setBrideName(event.target.value)}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        Groom's Name: &nbsp;
-                        <input
-                            type="text"
-                            name="groomName"
-                            value={groomName}
-                            onChange={(event) => setGroomName(event.target.value)}
-                        />
-                    </label>
-                    <br />
+
+
+
                     <label>
                         Location: &nbsp;
                         <input
@@ -139,9 +132,35 @@ export default function MyEvent() {
                         />
                     </label>
                     <br />
+                    <div className='iconDiv'>
+                        <img src="/images/icons8-bride-100.png" alt="bride" />
+                        <img src="/images/icons8-groom-100.png" alt="groom" />
+                    </div>
+                    <div className='iconDiv'>
+                        <label>
+                            Bride's Name: &nbsp;
+                            <input
+                                type="text"
+                                name="brideName"
+                                value={brideName}
+                                onChange={(event) => setBrideName(event.target.value)}
+                            />
+                        </label>
+                        <br />
+
+                        <label>
+                            Groom's Name: &nbsp;
+                            <input
+                                type="text"
+                                name="groomName"
+                                value={groomName}
+                                onChange={(event) => setGroomName(event.target.value)}
+                            />
+                        </label>
+                    </div>
                     <h4>Guest List</h4>
                     <div className='GuestList'>
-                        
+
                         <label>
                             Bride Guests:
                             {brideGuests && brideGuests.map((guest) => {
@@ -149,11 +168,13 @@ export default function MyEvent() {
                                     type="text"
                                     name="guest"
                                     value={guest.name}
-                                    // onClick={}
-                                // onChange={(event) => setLocation(event.target.value)}
+                                    onClick={() => toggleModal(guest)}
+
                                 />
                             })}
-                            <button>Add bride guests</button>
+                            <label>
+                                number of guests :{brideGuests.length}
+                            </label>
                         </label>
                         <label>
                             Groom Guests:
@@ -162,59 +183,22 @@ export default function MyEvent() {
                                     type="text"
                                     name="guest"
                                     value={guest.name}
-                                // onChange={(event) => setLocation(event.target.value)}
+                                    onClick={() => toggleModal(guest)}
+
                                 />
                             })}
-                            <button>Add Groom guests</button>
+                            <label>
+                                number of guests :{groomGuests.length}
+                            </label>
                         </label>
+
                     </div>
+
                     <button type="submit" value="Submit">Save</button>
+                    <button onClick={() => toggleModal()}>Add guests</button>
+                    <button onClick={() => { navigate("/sendemails") }}>Send emails to your guests </button>
                 </form>
-                ) : (
-                    <form >
-                        <label>
-                            Wedding Date:&nbsp;
-                            <input
-                                type="date"
-                                name="weddingDate"
-                                value={weddingDate}
-                                onChange={(e) => e.preventDefault()}
-                            />
-                        </label>
-                        <br />
-                        <label>
-                            Bride's Name:&nbsp;
-                            <input
-                                type="text"
-                                name="brideName"
-                                value={brideName}
-                                onChange={(e) => e.preventDefault()}
-                            />
-                        </label>
-                        <br />
-                        <label>
-                            Groom's Name:&nbsp;
-                            <input
-                                type="text"
-                                name="groomName"
-                                value={groomName}
-                                onChange={(e) => e.preventDefault()}
-                            />
-                        </label>
-                        <br />
-                        <label>
-                            Location:&nbsp;
-                            <input
-                                type="text"
-                                name="location"
-                                value={location}
-                                onChange={(e) => e.preventDefault()}
-                            />
-                        </label>
-                        <h4>Guest List</h4>
-                        {!isEditing && <button onClick={() => setIsEditing(true)}>Edit wedding</button>}
-                        <br />
-                    </form>)}
+
                 <div>
 
 

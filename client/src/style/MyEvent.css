@@ -49,3 +49,9 @@ justify-content: space-around;
     display: flex;
     flex-direction: column;
 }
+
+.iconDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}

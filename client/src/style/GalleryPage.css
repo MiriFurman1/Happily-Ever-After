@@ -2,6 +2,7 @@
 
 .GalleryPage {
   max-width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,11 +12,7 @@
   background: linear-gradient(to right bottom, #efeaea, #b7a9b7);
 }
 
-.GalleryPage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+
 
 .GalleryPage input[type="file"] {
   margin-bottom: 10px;
@@ -67,4 +64,12 @@
 
 .QRDiv {
   width: 200px;
+}
+
+
+.profileButtons{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

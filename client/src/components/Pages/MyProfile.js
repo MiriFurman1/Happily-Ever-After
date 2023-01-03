@@ -21,6 +21,11 @@ export default function MyAccount() {
     console.log(eventId);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!jwt) {
+            navigate("/")
+        }
+    }, [jwt, navigate])
 
 
     let apiUrl = "http://localhost:5000/api";
@@ -130,10 +135,11 @@ export default function MyAccount() {
                 )}
                 <h4>Name: {userData.name}</h4>
                 <h4>Email:{userData.email}</h4>
-                <button onClick={handleEdit}>Edit Profile</button>
-                <button onClick={handleDelete}>Delete Profile</button>
-                <button onClick={openUpload}>upload a profile picture</button>
-
+                <div className='profileButtons'>
+                    <button onClick={handleEdit}>Edit Profile</button>
+                    <button onClick={handleDelete}>Delete Profile</button>
+                    <button onClick={openUpload}>upload a profile picture</button>
+                </div>
                 {isUploading ? (<div>
                     <input type="file" onChange={fileSelectedHandler} />
                     <button onClick={handleUploadImage}> upload</button>
