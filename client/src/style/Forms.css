@@ -117,9 +117,9 @@
     height: 20vw;
   }
   .LoginDiv,.RegisterDiv{
-    width: 60vw;
+    width: 80vw;
   }
   .LoginDiv input,.RegisterDiv input{
-    width: 50vw;
+    width: 70vw;
   }
 }
