@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 import { Api } from '../api/Api';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
+import { handleGuest } from '../utils';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -33,11 +35,13 @@ export default function Navbar() {
       });
   }
 
+ 
 
 let apiUrl = "http://localhost:5000/api";
 if(process.env.NODE_ENV==="production"){
 apiUrl = '/api'
 }
+
 
 
 useEffect(() => {
@@ -109,6 +113,7 @@ const galleryUrl = `gallerypage/${eventId}`
         {!jwt && (<div>
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
+          <Link onClick={handleGuest}>Start As Guest</Link>
         </div>)}
 
         {jwt && (<div className='userButtons'>
@@ -127,3 +132,4 @@ const galleryUrl = `gallerypage/${eventId}`
     </div>
   )
 }
+

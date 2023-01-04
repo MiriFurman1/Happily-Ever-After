@@ -65,7 +65,7 @@ min-height: 15px;
 }
 
 
-@media (max-width:940px) and (min-width:450px){
+@media (max-width:1000px) and (min-width:450px){
   .NavbarButtons{
     display: none;
   }

@@ -7,6 +7,7 @@ import { Api } from '../api/Api';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { slide as Menu } from 'react-burger-menu';
+import { handleGuest } from '../utils';
 
 export default function SideBar() {
     const navigate = useNavigate();
@@ -117,6 +118,7 @@ export default function SideBar() {
                         {!jwt && (<div>
                             <Link to="/login">Login</Link>
                             <Link to="/register">Register</Link>
+                            <Link onClick={handleGuest}>Start As Guest</Link>
                         </div>)}
 
                         {jwt && (<div >
