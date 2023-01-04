@@ -12,19 +12,10 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
   const [numOfGuests, setNumOfGuests] = useState("")
   const [side, setSide] = useState("")
   const [jwt] = useState(Cookies.get('jwt'));
-  const [newGuest, setNewGuest] = useState(null)
+
 
   useEffect(() => {
-    if (!currentGuest) {
-      const newGuest = {
-        name: guestName,
-        email: guestEmail,
-        numberOfGuests: numOfGuests,
-        side: side,
-      };
-      setNewGuest(newGuest)
-    }
-    else {
+    if(modal){
       setGuestName(currentGuest.name)
       setGuestEmail(currentGuest.email)
       setNumOfGuests(currentGuest.numberOfGuests)
@@ -42,7 +33,8 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
 
 
   useEffect(() => {
-    if (modal) {
+    if (modal&&currentGuest) {
+      console.log(currentGuest)
       setGuestName(currentGuest.name)
       setGuestEmail(currentGuest.email)
       setNumOfGuests(currentGuest.numberOfGuests)
@@ -62,8 +54,12 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (currentGuest) {
-      const updatedGuests = await guests.map((guest) => {
+      let isNewUser =true
+      let updatedGuests = await guests.map((guest) => {
+        console.log("milky");
         if (guest._id === currentGuest._id) {
+          isNewUser=false
+          console.log("maple");
           return {
             ...guest,
             name: guestName,
@@ -71,11 +67,21 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
             numberOfGuests: numOfGuests,
             side: side,
           };
+          
         } else {
           return guest;
         }
       });
 
+      if(isNewUser)
+      {
+        updatedGuests = [...guests, {            
+          name: guestName,
+          email: guestEmail,
+          numberOfGuests: numOfGuests,
+          side: side}];
+      }
+console.log(updatedGuests);
       var data = JSON.stringify({
         "guests": updatedGuests
       })
@@ -101,32 +107,6 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
         });
     }
 
-    else if (newGuest) {
-      const updatedGuests = [...guests, newGuest];
-      var dataNew = JSON.stringify({
-        "guests": updatedGuests
-      })
-      var configNew = {
-        method: 'patch',
-        url: `${apiUrl}/mywedding`,
-        headers: {
-          'Authorization': `Bearer ${jwt}`,
-          'Content-Type': 'application/json'
-        },
-        data: dataNew
-      };
-
-      axios(configNew)
-        .then(function (response) {
-          console.log((response.data));
-          toggleModal();
-          window.location.reload(false);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-    }
   }
 
   const handleDelete = async () => {
@@ -164,7 +144,7 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
     <>
 
 
-      {(modal && (currentGuest || newGuest)) && (
+      {(modal ) && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
@@ -179,7 +159,6 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
                   onChange={(event) => {
                     setGuestName(event.target.value)}}
                 />
-                {/* <h2>{guestName}</h2> */}
               </label>
               <label>
                 Email: &nbsp;

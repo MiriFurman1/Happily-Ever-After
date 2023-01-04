@@ -10,10 +10,8 @@
   text-align: center;
   padding: 20px;
   background: linear-gradient(to right bottom, #efeaea, #b7a9b7);
-  
+  overflow-x: hidden;
 }
-
-
 
 .GalleryPage input[type="file"] {
   margin-bottom: 10px;
@@ -49,15 +47,31 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
   border: 1px dotted black;
   overflow: hidden;
+  background-image: url("../../public/images/hd-wallpaper-gf00367290_1920.jpg");
 }
 .GalleryPage .card img {
   height: 200px;
   width: 200px;
+}
+.GalleryPage .card p {
+  width: 40vw;
+}
+.GalleryPage .card .cardText {
+  width: 50vw;
+  background-color: rgba(220, 197, 213, 0.468);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -66,11 +80,37 @@
 .QRDiv {
   width: 200px;
 }
+@media   (min-width: 1000px) {
+  .GalleryPage .card  {
+    width: 50vw;
+  }
+}
 
+@media (max-width: 950px) and (min-width: 750px) {
+  .GalleryPage .card .cardText {
+    width: 60vw;
+  }
+}
 
-.profileButtons{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@media (max-width: 750px) and (min-width: 550px) {
+  .GalleryPage .card .cardText {
+    width: 80vw;
+    font-size: 15px;
+   
+  }
+  .GalleryPage .card {
+    width: 90vw;
+    height: 60vh;
+  }
+}
+
+@media (max-width: 550px)  {
+  .GalleryPage .card .cardText {
+    width: 90vw;
+    font-size: 13px;
+  }
+  .GalleryPage .card {
+    width: 95vw;
+    height: 80vh;
+  }
 }

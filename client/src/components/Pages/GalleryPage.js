@@ -88,10 +88,13 @@ function GalleryPage() {
       <input type="file" onChange={handleFileChange} multiple />
       <button onClick={handleUploadClick}>Upload</button>
       {jwt && (<div className='card'>
+        <div className='cardText'> 
         <p>Please share this link with your guests to allow them to upload photos from your wedding:  </p>
         <a href={siteLink}>{siteLink}</a>
+        {urlEncoded && <p>Or just you can print the following code and provide it to your guests so they can easily upload their photos</p>}
+        </div>
         {urlEncoded && <div className='QRDiv'>
-          <p>Or just you can print the following code and provide it to your guests so they can easily upload their photos</p>
+
           <img src={urlEncoded} alt="" width="200px"></img>
         </div>}
       </div>)}

@@ -32,15 +32,20 @@ body.active-modal {
     padding: 14px 28px;
     border-radius: 3px;
     width:30vw;
-    height:30vh;
+    height:40vh;
     max-width: 600px;
     min-width: 300px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content form{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .modal-content form input{
     background: #b1a4b1;

@@ -24,7 +24,17 @@ export default function MyEvent() {
     
 
     const toggleModal = (guest) => {
-        setCurrentGuest(guest)
+        if(guest){
+            setCurrentGuest(guest)
+        }
+        else {
+            setCurrentGuest({
+                name: "",
+                email: "",
+                numberOfGuests: "",
+                side: "",
+            })
+        }
         setModal(!modal);
     };
 
@@ -56,11 +66,12 @@ export default function MyEvent() {
         axios(config)
             .then(function (response) {
                 setEvent(response.data[0])
+                console.log(response.data);
                 setBrideName(response.data[0].brideName)
                 setGroomName(response.data[0].groomName)
                 setWeddingDate((prev)=>{
                     if(response.data[0].weddingDate){
-                        response.data[0].weddingDate.slice(0, 10)
+                        return response.data[0].weddingDate.slice(0, 10)
                     }
                     else{
                         return "2023-01-01"
@@ -203,10 +214,11 @@ export default function MyEvent() {
                         </label>
 
                     </div>
-
+                            <div className='EventButtonsDiv'>
                     <button type="submit" value="Submit">Save</button>
                     <button onClick={() => toggleModal()}>Add guests</button>
                     <Link to="/sendemails" state={event} className="link"><button>Send emails to your guests</button></Link>
+                    </div>
                 </form>
 
                 <div>

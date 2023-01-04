@@ -1,58 +1,87 @@
-.MyEvent{
-    max-width: 100vw;
-    height:94.5vh;
-    line-height: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(to right bottom, #efeaea, #b7a9b7);
-    background-image: url("../../public/images/heart-g51c67945c_1920.jpg");
+.MyEvent {
+  max-width: 100vw;
+  height: 94.5vh;
+  line-height: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(to right bottom, #efeaea, #b7a9b7);
+  background-image: url("../../public/images/heart-g51c67945c_1920.jpg");
 }
 
-.MyEvent button{
-    margin-top: 2vw;
-    padding: 10px;
-    width: 200px;
-    height: 40px;
-    border: none;
-    background-color: rgb(78, 76, 76);
-    color: #e8e3ec;
-    border-radius: 5px;
+.MyEvent button {
+  margin-top: 2vw;
+  padding: 10px;
+  width: 200px;
+  height: 40px;
+  border: none;
+  background-color: rgb(78, 76, 76);
+  color: #e8e3ec;
+  border-radius: 5px;
 }
 
-.MyEvent form input{
-    border: none;
-    background-color: #ece8ecd6;
-    border-bottom: 1px black dotted;
+.MyEvent form input {
+  border: none;
+  background-color: #ece8ecd6;
+  border-bottom: 1px black dotted;
 }
 
-.EventDiv{
-    margin-top: 10vw;
-    background-color: #ece8ecd6;
-    min-height:60vh;
-    min-width: 60vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+.EventDiv {
+  margin-top: 10vw;
+  background-color: #ece8ecd6;
+  min-height: 60vh;
+  min-width: 60vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-.GuestList{
-    width:50vw;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-around;
+.GuestList {
+  width: 50vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 
-.GuestList label{
-    display: flex;
-    flex-direction: column;
+.GuestList label {
+  display: flex;
+  flex-direction: column;
 }
 
-.iconDiv{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+.iconDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.EventDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1000px) and (min-width:650px) {
+  .GuestList {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+@media(max-width:650px){
+    .EventDiv{
+        width:90vw;
+    }
+    .GuestList {
+        width: 100%;
+        justify-content: space-around;
+      }
+    .EventButtonsDiv{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }

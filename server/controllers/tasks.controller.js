@@ -4,7 +4,7 @@ import { Task } from "../models/task.model.js";
 
 
 export const createTask = async (req, res) => {
-    console.log(req.body);
+
     const task = new Task({
         ...req.body,
         owner: req.user._id

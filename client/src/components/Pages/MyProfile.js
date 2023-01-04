@@ -26,7 +26,14 @@ export default function MyAccount() {
             navigate("/")
         }
     }, [jwt, navigate])
-
+ 
+    useEffect(() => {
+        if (editForm) {
+            setName(userData.name);
+            setEmail(userData.email);
+            setPassword(userData.password)
+        }
+    }, [editForm, userData]);
 
     let apiUrl = "http://localhost:5000/api";
     if (process.env.NODE_ENV === "production") {
@@ -120,8 +127,33 @@ export default function MyAccount() {
         (userData && userData.avatar !== "") && setImgUrl(`${apiUrl}/users/${userData._id}/avatar`)
     }, [userData, apiUrl])
 
+    const handleCancel = () => {
+        setEditForm(prev => !prev)
+    }
 
+    const handleSubmitEdit = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `${jwt}`);
+        myHeaders.append("Content-Type", "application/json");
 
+        var raw = JSON.stringify({
+            name: name,
+            email: email,
+            password: password
+        });
+
+        var requestOptions = {
+            method: 'PATCH',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch(`${apiUrl}/users/me`, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    }
 
     return (
         <div className='MyProfile'>
@@ -134,20 +166,37 @@ export default function MyAccount() {
                             <img src={imgUrl} alt="" />
                         </div>
                     )}
-                    <h4>Name: {userData.name}</h4>
-                    <h4>Email:{userData.email}</h4>
-                    <div className='profileButtons'>
-                        <button onClick={handleEdit}>Edit Profile</button>
-                        <button onClick={handleDelete}>Delete Profile</button>
-                        <button onClick={openUpload}>upload a profile picture</button>
-                    </div>
+                    {editForm ? (
+                        <form>
+                            <h5>Edit your profile</h5>
+                            <label htmlFor='name'>name</label>
+                            <input type="string" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                            <label htmlFor='email'>email</label>
+                            <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                            <label htmlFor='password'>password</label>
+                            <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                            <button type="submit" onClick={handleSubmitEdit}>confirm</button>
+                            <button onClick={handleCancel}>cancel</button>
+                        </form>
+                    ) : (
+                        <div>
+                            <h4>Name: {userData.name}</h4>
+                            <h4>Email:{userData.email}</h4>
+                            <div className='profileButtons'>
+                                <button onClick={handleEdit}>Edit Profile</button>
+                                <button onClick={handleDelete}>Delete Profile</button>
+                                <button onClick={openUpload}>upload a profile picture</button>
+                            </div>
+                        </div>
+                    )}
+
                     {isUploading ? (<div>
                         <input type="file" onChange={fileSelectedHandler} />
                         <button onClick={handleUploadImage}> upload</button>
                     </div>) : ""}
 
                 </div>)}
-                {editForm && (
+                {/* {editForm && (
                     <form>
                         <h5>Edit your profile</h5>
                         <label htmlFor='name'>name</label>
@@ -159,7 +208,7 @@ export default function MyAccount() {
                         <button type="submit">confirm</button>
                         <button>cancel</button>
                     </form>
-                )}
+                )} */}
             </div>
         </div>
     )

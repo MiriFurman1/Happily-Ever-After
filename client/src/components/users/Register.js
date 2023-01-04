@@ -98,8 +98,8 @@ export default function Register() {
 
         fetch(`${apiUrl}/tasks`, requestOptions)
             .then(response => response.text())
-            .then(result => {console.log(result)
-			navigate('/')})
+            .then(result => 
+			navigate('/'))
             .catch(error => console.log('error', error));
 
 	})

@@ -139,3 +139,47 @@ justify-content: center;
   border: none;
   border-bottom: 1px dotted black;
 }
+
+.ListDiv input{
+  width:35vw
+}
+@media(max-width:800px) and (min-width:450px){
+  .app-wrapper{
+    min-width: 450px;
+    width:80vw;
+    
+  }
+
+  .editButtons{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .ListDiv input{
+    font-size:14px;
+  }
+}
+
+@media(max-width:450px){
+  .app-wrapper{
+    min-width: 350px;
+    width:80vw;
+    
+  }
+
+  .editButtons{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .ListDiv input{
+    font-size:14px;
+  }
+
+  .ListDiv input{
+    width:27vw;
+    font-size:12px;
+  }
+
+
+}

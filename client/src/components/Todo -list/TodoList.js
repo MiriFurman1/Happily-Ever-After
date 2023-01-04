@@ -71,7 +71,7 @@ function TodoList({ todos, setTodos }) {
 
         fetch(`${apiUrl}/tasks/${todo._id}`, requestOptions)
             .then((response) => response.text())
-            .then((result) => console.log(result))
+            .then((result) => window.location.reload(false))
             .catch((error) => console.log('error', error));
     };
 
@@ -125,10 +125,8 @@ function TodoList({ todos, setTodos }) {
 
 
     return (
-        <div>
-            <div className='Headlines'>
+        <div className='ListDiv'>
 
-            </div>
             {categories&&categories.map((category)=>{
                 let filteredTodos = todos.filter(task=> task.category===category)
                 return (<div>
@@ -163,7 +161,7 @@ function TodoList({ todos, setTodos }) {
                                         })
                                     }
                                 />
-                                <div>
+                                <div className='editButtons'>
                                     <button
                                         className='button-confirm task-button'
                                         onClick={handleTodoConfirm}
