@@ -13,15 +13,15 @@ export default function HomePage() {
 
       </div>
       <div className='icons-div'>
-        <div>
+        <div className='card'>
           <img src="/images/wedding-date.png" alt="" width="100px" />
           <p>Planning a wedding can be a stressful and time-consuming process, but the website makes it easy to stay organized and on track with a comprehensive todo list.</p>
         </div>
-        <div>
+        <div className='card'>
           <img src="/images/camera-change.png" alt="" width="100px" />
           <p>One of the features of the website is the ability for guests to easily share photos from the wedding. This helps to create a shared album that everyone can enjoy.</p>
         </div>
-        <div>
+        <div className='card'>
           <img src="/images/wedding-invitation.png" alt="" width="100px" />
           <p>The website provides tools for the bride and groom to send updates and communicate with guests through email. This helps to keep everyone informed.</p>
         </div>

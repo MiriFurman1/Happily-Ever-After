@@ -9,14 +9,11 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 export const sendGuestEmails = async (req, res) => {
     try {
 
-        // let guestsEmails = ["mirifurman@gmail.com"]
-        // console.log(guestsEmails);
+        console.log('image',req.file);
+
         const { subject, body, guestEmails } = req.body;
         const image = req.file
-        // console.log(image.originalname);
         const parsedEmails=JSON.parse(guestEmails) ;
-        console.log(guestEmails);
-        console.log(parsedEmails);
 
         for (let i = 0; i < parsedEmails.length; i++) {
             const guest = parsedEmails[i];
