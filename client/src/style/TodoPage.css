@@ -10,25 +10,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("../../public/images/wedding-flowers-g1e1536fc1_1920.jpg");
 }
 
 .container .formInput input{
-  background-color: #273139;
+  background-color: #beb3c8;
+  color: rgb(55, 52, 52);
 }
 
 .app-wrapper {
-  background-color: #77819F;
+  margin-top: 5vw;
+  background-color: #e4dfe9dc;
   min-width: 450px;
   min-height: 650px;
   padding: 30px;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 3px 6px 40px #000;
   margin-bottom: 10px;
 }
 
 .header h1 {
-  color: #fff;
+  color: rgb(73, 70, 70);
   text-align: center;
   margin: 30px 0;
 }
@@ -39,7 +42,8 @@
   padding: 15px;
   margin-right: 25px;
   font-size: 20px;
-  color: #ccc;
+  color: rgb(98, 92, 92);
+  background-color: #beb3c8;
 }
 
 .button-add {
@@ -48,7 +52,7 @@
   font-size: 20px;
   border-radius: 10px;
   border: 0;
-  background-color: #3C4856;
+  background-color: #beb3c8;
   cursor: pointer;
 }
 
@@ -57,12 +61,17 @@
     align-items: center;
     margin: 20px 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-color: #454b60;
+    background-color: #beb3c8;
     border-radius: 10px;
     padding:5px;
     max-height:30px;
+    
 }
 
+.list-item input{
+  min-width:auto;
+  width:30vw
+}
 .button-confirm,
 .button-cancel,
 .button-complete,
@@ -99,9 +108,9 @@
 
 .list{
     width:220px;
-    background-color: #454b60;
+    background-color: #beb3c8;
     border:none;
-    color: #ccc;
+    color: #2e2b3c;
     font-size: 20px;
     padding-left: 10px;
     padding-right: 15px;
@@ -126,5 +135,7 @@ justify-content: center;
 
 
 .edit-list{
-  background-color: #697394;
+  background-color: #beb3c8;
+  border: none;
+  border-bottom: 1px dotted black;
 }

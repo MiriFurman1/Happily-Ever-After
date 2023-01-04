@@ -4,7 +4,10 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    background: linear-gradient(to right bottom, #efeaea, #b7a9b7)
+    background: linear-gradient(to right bottom, #efeaea, #b7a9b7);
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../public/images/couple-g9de54674a_1920.jpg");
 }
 
 .MyProfile button{
@@ -24,9 +27,17 @@
 }
 
 .MyProfile h3{
-    margin-top: 5vw;
+    margin-top: 3vw;
 }
 
 .MyProfile h4{
     margin-top: 1vw;
+}
+
+.profileDiv{
+    background-color: #e8e3ecd3;
+    width:50vw;
+    min-height:60vh;
+    border-radius: 5px;
+    box-shadow: 3px 6px 40px #000;
 }

@@ -5,49 +5,42 @@ dotenv.config();
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-// export const createTask = async (req, res) => {
-//     console.log(req.body);
-//     const task = new Task({
-//         ...req.body,
-//         owner: req.user._id
-//     })
 
-//     try {
-//         await task.save()
-//         res.status(201).send(task)
-//     } catch (e) {
-//         res.status(400).send(e)
-//     }
-// }
 export const sendGuestEmails = async (req, res) => {
-    let guestsEmails=["mirifurman@gmail.com"]
-    console.log(guestsEmails);
-    console.log(req.body);
-    // const { subject, body, image } = req.body;
-    // subject=req.body.subject
-    // console.log(subject);
+    try {
 
-    // console.log(req.body)
-   
-    for (let i = 0; i < guestsEmails.length; i++) {
-        const guest = guestsEmails[i];
-  
-        sgMail.send({
-            to: guest,
-            from: 'everafterhapilly@gmail.com',
-            subject: subject,
-            text: body,
-            // html: body,
-            // attachments: [{
-            //     content: image,
-            //     filename: 'image.jpg',
-            //     type: 'image/jpeg',
-            //     disposition: 'attachment',
-            // }],
-        });
+        // let guestsEmails = ["mirifurman@gmail.com"]
+        // console.log(guestsEmails);
+        const { subject, body, guestEmails } = req.body;
+        const image = req.file
+        // console.log(image.originalname);
+        const parsedEmails=JSON.parse(guestEmails) ;
+        console.log(guestEmails);
+        console.log(parsedEmails);
+
+        for (let i = 0; i < parsedEmails.length; i++) {
+            const guest = parsedEmails[i];
+
+            sgMail.send({
+                to: guest,
+                from: 'everafterhapilly@gmail.com',
+                subject: subject,
+                text: body,
+                html: body,
+                attachments: [{
+                    content: image.buffer.toString('base64'),
+                    filename: image.originalname,
+                    type: 'image/jpeg',
+                    disposition: 'attachment',
+                }],
+            });
+        }
+
+
+        res.send({ message: 'Emails sent!' });
+    } catch (err) {
+        console.log(err.message);
+        res.send(err.message)
     }
-
-
-    res.send({ message: 'Emails sent!' });
 };
 

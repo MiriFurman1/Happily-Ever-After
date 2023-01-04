@@ -23,19 +23,19 @@
 
 .MyEvent form input{
     border: none;
-    background-color: #efeaea;
+    background-color: #ece8ecd6;
     border-bottom: 1px black dotted;
 }
 
 .EventDiv{
     margin-top: 10vw;
-    background-color: #efeaea;
-    min-height:50vh;
+    background-color: #ece8ecd6;
+    min-height:60vh;
     min-width: 60vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .GuestList{

@@ -54,7 +54,7 @@ indexRouter.delete('/mywedding',auth,deleteWedding)
 
 //gallery routes
 
-indexRouter.post('/gallery/uploadimage/:eventid', upload.array('images',12), uploadImage, (error, req, res, next) => {
+indexRouter.post('/gallery/uploadimage/:eventid',upload.array('images',12) , uploadImage, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })
 
@@ -63,5 +63,5 @@ indexRouter.get('/images/:eventid/:index',getImageOne)
 
 
 //send emails
-indexRouter.post('/send-emails', auth, sendGuestEmails)
+indexRouter.post('/send-emails',upload.single('image'), sendGuestEmails)
 // indexRouter.post('/send-emails',sendGuestEmails)

@@ -30,7 +30,7 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
       setNumOfGuests(currentGuest.numberOfGuests)
       setSide(currentGuest.side)
     }
-  }, [currentGuest, guestName, guestEmail, numOfGuests, side, modal])
+  }, [])
 
 
 
@@ -41,15 +41,15 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
 
 
 
-  // useEffect(() => {
-  //   if (modal) {
-  //     setGuestName(currentGuest.name)
-  //     setGuestEmail(currentGuest.email)
-  //     setNumOfGuests(currentGuest.numberOfGuests)
-  //     setSide(currentGuest.side)
-  //   }
+  useEffect(() => {
+    if (modal) {
+      setGuestName(currentGuest.name)
+      setGuestEmail(currentGuest.email)
+      setNumOfGuests(currentGuest.numberOfGuests)
+      setSide(currentGuest.side)
+    }
 
-  // }, [currentGuest, modal])
+  }, [currentGuest, modal])
 
 
 
@@ -176,8 +176,10 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
                   type="Name"
                   name="GuestName"
                   value={guestName}
-                  onChange={(event) => setGuestName(event.target.value)}
+                  onChange={(event) => {
+                    setGuestName(event.target.value)}}
                 />
+                {/* <h2>{guestName}</h2> */}
               </label>
               <label>
                 Email: &nbsp;

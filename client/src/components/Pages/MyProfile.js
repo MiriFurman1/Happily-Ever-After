@@ -125,40 +125,42 @@ export default function MyAccount() {
 
     return (
         <div className='MyProfile'>
-            {userData && (<div>
-                <h3>My profile</h3>
-                {console.log(userData)}
-                {(imgUrl && userData.avatar !== "") && (
-                    <div>
-                        <img src={imgUrl} alt="" />
+            <div className='profileDiv'>
+                {userData && (<div>
+                    <h3>My profile</h3>
+                    {console.log(userData)}
+                    {(imgUrl && userData.avatar !== "") && (
+                        <div>
+                            <img src={imgUrl} alt="" />
+                        </div>
+                    )}
+                    <h4>Name: {userData.name}</h4>
+                    <h4>Email:{userData.email}</h4>
+                    <div className='profileButtons'>
+                        <button onClick={handleEdit}>Edit Profile</button>
+                        <button onClick={handleDelete}>Delete Profile</button>
+                        <button onClick={openUpload}>upload a profile picture</button>
                     </div>
-                )}
-                <h4>Name: {userData.name}</h4>
-                <h4>Email:{userData.email}</h4>
-                <div className='profileButtons'>
-                    <button onClick={handleEdit}>Edit Profile</button>
-                    <button onClick={handleDelete}>Delete Profile</button>
-                    <button onClick={openUpload}>upload a profile picture</button>
-                </div>
-                {isUploading ? (<div>
-                    <input type="file" onChange={fileSelectedHandler} />
-                    <button onClick={handleUploadImage}> upload</button>
-                </div>) : ""}
+                    {isUploading ? (<div>
+                        <input type="file" onChange={fileSelectedHandler} />
+                        <button onClick={handleUploadImage}> upload</button>
+                    </div>) : ""}
 
-            </div>)}
-            {editForm && (
-                <form>
-                    <h5>Edit your profile</h5>
-                    <label htmlFor='name'>name</label>
-                    <input type="string" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
-                    <label htmlFor='email'>email</label>
-                    <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                    <label htmlFor='password'>password</label>
-                    <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                    <button type="submit">confirm</button>
-                    <button>cancel</button>
-                </form>
-            )}
+                </div>)}
+                {editForm && (
+                    <form>
+                        <h5>Edit your profile</h5>
+                        <label htmlFor='name'>name</label>
+                        <input type="string" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                        <label htmlFor='email'>email</label>
+                        <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                        <label htmlFor='password'>password</label>
+                        <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                        <button type="submit">confirm</button>
+                        <button>cancel</button>
+                    </form>
+                )}
+            </div>
         </div>
     )
 }

@@ -3,7 +3,6 @@ import cors from 'cors';
 import bodyParser from 'body-parser'
 import * as url from 'url'
 import path from 'path';
-
 const __dirname = url.fileURLToPath(new URL('./', import.meta.url))
 
 import { indexRouter } from './routes/index.routes.js'
@@ -16,6 +15,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({
     extended:true
 }))
+app.use(bodyParser.json())
 
 app.use('/api', indexRouter)
 

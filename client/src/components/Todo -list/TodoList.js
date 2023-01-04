@@ -48,7 +48,7 @@ function TodoList({ todos, setTodos }) {
         };
 
         fetch(`${apiUrl}/tasks/${_id}`, requestOptions)
-            .then((response) => response.text())
+            .then((response) =>window.location.reload(false))
             .catch((error) => console.log('error', error));
     };
 
