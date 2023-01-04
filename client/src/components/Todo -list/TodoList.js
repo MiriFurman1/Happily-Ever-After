@@ -119,7 +119,9 @@ function TodoList({ todos, setTodos }) {
     };
 
     useEffect(() => {
-        const unique = [...new Set(todos.map(task => task.category))];
+        let constList = ["4 months to go","3 months to go","2 months to go","1 months to go","1 week to go","Wedding Day"]
+        constList.push(...(todos.map(task => task.category)))
+        const unique = [...new Set(constList)];
         setCategories(unique)
     }, [todos])
 

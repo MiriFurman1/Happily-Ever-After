@@ -6,6 +6,7 @@ import '../../style/MyProfile.css'
 import { useNavigate } from 'react-router-dom';
 
 
+
 export default function MyAccount() {
     const [userData, setUserData] = useState(null)
     const [selectedFile, setSelectedFile] = useState(null)
@@ -132,6 +133,7 @@ export default function MyAccount() {
     }
 
     const handleSubmitEdit = () => {
+        // e.preventDefault()
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `${jwt}`);
         myHeaders.append("Content-Type", "application/json");
@@ -150,8 +152,11 @@ export default function MyAccount() {
         };
 
         fetch(`${apiUrl}/users/me`, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
+            .then(response =>  response.text())
+            .then(result => {
+                console.log("changed");
+                localStorage.setItem('userName',name)
+            })
             .catch(error => console.log('error', error));
     }
 
