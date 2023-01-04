@@ -1,6 +1,6 @@
 .MyEvent {
   max-width: 100vw;
-  height: 94.5vh;
+  height: 93vh;
   line-height: 2rem;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,7 @@
 
 @media(max-width:650px){
     .EventDiv{
-        width:90vw;
+        width:100vw;
     }
     .GuestList {
         width: 100%;

@@ -1,6 +1,6 @@
 .MyProfile {
   max-width: 100vw;
-  height: 94.5vh;
+  min-height: 93vh;
   display: flex;
   flex-direction: column;
   text-align: center;

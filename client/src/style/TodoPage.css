@@ -160,11 +160,10 @@ justify-content: center;
   }
 }
 
-@media(max-width:450px){
+@media(max-width:600px){
   .app-wrapper{
     min-width: 350px;
-    width:80vw;
-    
+    width:95vw;
   }
 
   .editButtons{
