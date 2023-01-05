@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import { Api } from '../api/Api';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { handleGuest } from '../utils';
 
 export default function Navbar() {
