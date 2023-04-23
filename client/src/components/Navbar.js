@@ -38,7 +38,7 @@ export default function Navbar() {
  
 
 let apiUrl = "http://localhost:5000/api";
-if(process.env.NODE_ENV!=="production"){
+if(process.env.NODE_ENV==="production"){
 apiUrl = process.env.REACT_APP_API_URL
 }
 
