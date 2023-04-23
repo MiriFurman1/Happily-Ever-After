@@ -13,6 +13,7 @@ import {useState} from 'react'
 import {createContext} from 'react'
 import Sidebar from './components/SideBar'
 import SendEmails from './components/Pages/SendEmails';
+import Footer from './components/Footer/Footer';
 export const UserContext = createContext();
 function App() {
 
@@ -36,6 +37,7 @@ const [userData,setUserData]=useState([])
       <Route path="/sendemails" element={<SendEmails/>}/>
       
       </Routes>
+      <Footer/>
       </div>
       </UserContext.Provider>
     </div>

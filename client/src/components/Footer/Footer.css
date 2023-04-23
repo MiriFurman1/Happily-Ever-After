@@ -1,0 +1,14 @@
+.Footer{
+    background-color: rgb(51,51,51);
+    color:white;
+    font-size: 14px;
+    display: flex;
+}
+
+.Footer a{
+    text-decoration: none;
+    color: white;
+}
+.Footer p{
+    padding: 1rem;
+}
