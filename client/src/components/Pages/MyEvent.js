@@ -5,7 +5,7 @@ import '../../style/MyEvent.css'
 import { useNavigate } from 'react-router-dom';
 import Modal from '../Modal/modal.js'
 import {Link} from 'react-router-dom'
-
+import { apiUrl } from '../../api/Api.js'
 
 export default function MyEvent() {
 
@@ -45,10 +45,10 @@ export default function MyEvent() {
         }
     }, [jwt, navigate])
 
-    let apiUrl = "http://localhost:5000/api";
-    if (process.env.NODE_ENV === "production") {
-        apiUrl = '/api'
-    }
+    // let apiUrl = "http://localhost:5000/api";
+    // if (process.env.NODE_ENV === "production") {
+    //     apiUrl = '/api'
+    // }
 
 
 

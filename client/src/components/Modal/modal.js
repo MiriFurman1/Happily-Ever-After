@@ -3,7 +3,7 @@ import { useState } from 'react'
 import "./modal.css";
 import Cookies from 'js-cookie';
 import axios from 'axios';
-
+import { apiUrl } from '../../api/Api.js'
 export default function Modal({ modal, toggleModal, currentGuest, guests }) {
 
 
@@ -25,10 +25,10 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
 
 
 
-  let apiUrl = "http://localhost:5000/api";
-  if (process.env.NODE_ENV === "production") {
-    apiUrl = '/api'
-  }
+  // let apiUrl = "http://localhost:5000/api";
+  // if (process.env.NODE_ENV === "production") {
+  //   apiUrl = '/api'
+  // }
 
 
 

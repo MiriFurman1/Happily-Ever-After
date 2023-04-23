@@ -8,26 +8,26 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 // import { v4 as uuidv4 } from 'uuid';
 import { handleGuest } from '../utils';
-
+import { apiUrl } from '../api/Api.js'
 export default function Navbar() {
   const navigate = useNavigate();
   const [jwt, setJwt] = useState(Cookies.get('jwt'));
   const [userName, setUserName] = useState(localStorage.getItem('userName'));
-  const [eventId,setEventId]=useState(null)
+  const [eventId, setEventId] = useState(null)
 
 
   function handleLogout() {
-    Api.post(`/users/logout`,{}, {
+    Api.post(`/users/logout`, {}, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
     })
-    .then((response) => {
+      .then((response) => {
         console.log(response);
         localStorage.removeItem('userName');
         Cookies.remove('jwt')
         Cookies.remove('eventId')
-        
+
         navigate("/")
       })
       .catch((error) => {
@@ -35,42 +35,42 @@ export default function Navbar() {
       });
   }
 
- 
 
-let apiUrl = "http://localhost:5000/api";
-if(process.env.NODE_ENV==="production"){
-apiUrl = process.env.REACT_APP_API_URL
-}
 
-// let apiUrl = process.env.API_URL
-console.log(process.env);
-useEffect(() => {
-  if(jwt){
+  // let apiUrl = "http://localhost:5000/api";
+  // if (process.env.NODE_ENV === "production") {
+  //   apiUrl = process.env.REACT_APP_API_URL
+  // }
 
-    var data = '';
-    var config = {
+  // let apiUrl = process.env.API_URL
+  // console.log(process.env);
+  useEffect(() => {
+    if (jwt) {
+
+      var data = '';
+      var config = {
         method: 'get',
         url: `${apiUrl}/mywedding`,
         headers: {
-            'Authorization': `Bearer ${jwt}`
+          'Authorization': `Bearer ${jwt}`
         },
         data: data
-    };
-  
-    axios(config)
+      };
+
+      axios(config)
         .then(function (response) {
           setEventId(response.data[0]._id)
           Cookies.set('eventId', response.data[0]._id)
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         });
-  }
-  
+    }
 
-}, [apiUrl, jwt,navigate])
 
-//get userName and refresh
+  }, [apiUrl, jwt, navigate])
+
+  //get userName and refresh
   useEffect(() => {
     const interval = setInterval(() => {
       const newUserName = localStorage.getItem('userName');
@@ -101,7 +101,7 @@ useEffect(() => {
     };
   }, [jwt]);
 
-const galleryUrl = `gallerypage/${eventId}`
+  const galleryUrl = `gallerypage/${eventId}`
   return (
     <div className='Navbar'>
 
@@ -118,14 +118,14 @@ const galleryUrl = `gallerypage/${eventId}`
 
         {jwt && (<div className='userButtons'>
           <Link to="/myprofile">My Profile</Link>
-          
-          {eventId&&(<div className='eventButtons'>
-          <Link to="/todolist">To Do List</Link>
-            <Link to={galleryUrl}>My Gallery</Link>
-          <Link to="/myevent">My Event</Link>
-            </div>)}
 
-          <Link  onClick={handleLogout}>Logout</Link>
+          {eventId && (<div className='eventButtons'>
+            <Link to="/todolist">To Do List</Link>
+            <Link to={galleryUrl}>My Gallery</Link>
+            <Link to="/myevent">My Event</Link>
+          </div>)}
+
+          <Link onClick={handleLogout}>Logout</Link>
 
         </div>)}
       </div>

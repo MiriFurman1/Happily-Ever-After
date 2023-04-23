@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Api } from '../../api/Api.js';
 import axios from 'axios'
-
+import { apiUrl } from '../../api/Api.js'
 
 export default function Register() {
 	const navigate = useNavigate();
@@ -13,10 +13,10 @@ export default function Register() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	
-    let apiUrl = "http://localhost:5000/api";
-    if (process.env.NODE_ENV === "production") {
-        apiUrl = '/api'
-    }
+    // let apiUrl = "http://localhost:5000/api";
+    // if (process.env.NODE_ENV === "production") {
+    //     apiUrl = '/api'
+    // }
 	async function registerUser(e) {
 		e.preventDefault()
 		try {

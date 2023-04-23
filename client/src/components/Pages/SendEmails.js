@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 // import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from 'react';
+import { apiUrl } from '../../api/Api.js'
 
 export default function SendEmails() {
   const [guestEmails, setGuestEmails] = useState(null)
@@ -36,10 +37,10 @@ export default function SendEmails() {
 
 
 
-  let apiUrl = "http://localhost:5000/api";
-  if (process.env.NODE_ENV === "production") {
-    apiUrl = '/api'
-  }
+  // let apiUrl = "http://localhost:5000/api";
+  // if (process.env.NODE_ENV === "production") {
+  //   apiUrl = '/api'
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();

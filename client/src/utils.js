@@ -3,13 +3,13 @@ import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
 import { Api } from './api/Api.js';
-
+import { apiUrl } from './api/Api.js'
 
 // let apiUrl = "http://localhost:5000/api";
 // if(process.env.NODE_ENV==="production"){
 // apiUrl = '/api'
 // }
-let apiUrl = process.env.API_URL
+// let apiUrl = process.env.API_URL
 
 export const handleGuest = async () => {
 
@@ -97,9 +97,9 @@ const addUserTasks = () => {
 
         fetch(`${apiUrl}/tasks`, requestOptions)
             .then(response => response.text())
-            .then(result =>console.log(result)
+            .then(result => console.log(result)
                 // navigate('/')
-                )
+            )
             .catch(error => console.log('error', error));
 
     })

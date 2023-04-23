@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { slide as Menu } from 'react-burger-menu';
 import { handleGuest } from '../utils';
+import { apiUrl } from '../api/Api.js'
 
 export default function SideBar() {
     const navigate = useNavigate();
@@ -36,10 +37,10 @@ export default function SideBar() {
     }
 
 
-    let apiUrl = "http://localhost:5000/api";
-    if (process.env.NODE_ENV === "production") {
-        apiUrl = '/api'
-    }
+    // let apiUrl = "http://localhost:5000/api";
+    // if (process.env.NODE_ENV === "production") {
+    //     apiUrl = '/api'
+    // }
 
 
     useEffect(() => {

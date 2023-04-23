@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import '../../style/GalleryPage.css'
 import { MyGallery } from './MyGallery.js'
 import Cookies from 'js-cookie'
+import { apiUrl } from '../../api/Api.js'
 
 
-
-let apiUrl = "http://localhost:5000/api";
-if (process.env.NODE_ENV === "production") {
-  apiUrl = '/api'
-}
+// let apiUrl = "http://localhost:5000/api";
+// if (process.env.NODE_ENV === "production") {
+//   apiUrl = '/api'
+// }
 
 function GalleryPage() {
   const [eventId] = useState(window.location.pathname.slice(13))
