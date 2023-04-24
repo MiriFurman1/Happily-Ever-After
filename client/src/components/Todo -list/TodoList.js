@@ -4,10 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../api/Api.js'
 function TodoList({ todos, setTodos }) {
     const jwt = Cookies.get('jwt');
-    // let apiUrl = 'http://localhost:5000/api';
-    // if (process.env.NODE_ENV === 'production') {
-    //     apiUrl = '/api';
-    // }
 
     const [editing, setEditing] = useState(false);
     const [currentTodo, setCurrentTodo] = useState(null);

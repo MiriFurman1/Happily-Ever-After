@@ -5,11 +5,7 @@ import Cookies from 'js-cookie';
 import { Api } from './api/Api.js';
 import { apiUrl } from './api/Api.js'
 
-// let apiUrl = "http://localhost:5000/api";
-// if(process.env.NODE_ENV==="production"){
-// apiUrl = '/api'
-// }
-// let apiUrl = process.env.API_URL
+
 
 export const handleGuest = async () => {
 

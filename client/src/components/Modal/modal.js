@@ -25,12 +25,6 @@ export default function Modal({ modal, toggleModal, currentGuest, guests }) {
 
 
 
-  // let apiUrl = "http://localhost:5000/api";
-  // if (process.env.NODE_ENV === "production") {
-  //   apiUrl = '/api'
-  // }
-
-
 
   useEffect(() => {
     if (modal&&currentGuest) {

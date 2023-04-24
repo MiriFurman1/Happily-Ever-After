@@ -45,12 +45,6 @@ export default function MyEvent() {
         }
     }, [jwt, navigate])
 
-    // let apiUrl = "http://localhost:5000/api";
-    // if (process.env.NODE_ENV === "production") {
-    //     apiUrl = '/api'
-    // }
-
-
 
     useEffect(() => {
         var data = '';

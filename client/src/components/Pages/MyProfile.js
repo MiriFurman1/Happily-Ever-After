@@ -36,10 +36,6 @@ export default function MyAccount() {
         }
     }, [editForm, userData]);
 
-    // let apiUrl = "http://localhost:5000/api";
-    // if (process.env.NODE_ENV === "production") {
-    //     apiUrl = '/api'
-    // }
 
     const fileSelectedHandler = async (event) => {
         setSelectedFile(event.target.files[0])

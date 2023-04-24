@@ -6,20 +6,17 @@ import Cookies from 'js-cookie'
 import { apiUrl } from '../../api/Api.js'
 
 
-// let apiUrl = "http://localhost:5000/api";
-// if (process.env.NODE_ENV === "production") {
-//   apiUrl = '/api'
-// }
-
 function GalleryPage() {
   const [eventId] = useState(window.location.pathname.slice(13))
+ 
   const [fileList, setFileList] = useState(null);
   const [numOfImg, setNumOfImg] = useState(0)
   const [jwt] = useState(Cookies.get('jwt'));
   const [urlEncoded, setUrlEncoded] = useState(null)
   const [siteLink] = useState(window.location.href)
+  
   useEffect(() => {
-
+    console.log(eventId);
     fetch(`${apiUrl}/gallery/${eventId}`, {
       method: 'GET'
     })

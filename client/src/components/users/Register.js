@@ -13,10 +13,6 @@ export default function Register() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	
-    // let apiUrl = "http://localhost:5000/api";
-    // if (process.env.NODE_ENV === "production") {
-    //     apiUrl = '/api'
-    // }
 	async function registerUser(e) {
 		e.preventDefault()
 		try {

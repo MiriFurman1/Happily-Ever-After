@@ -3,10 +3,6 @@ import Cookies from 'js-cookie'
 import { apiUrl } from '../../api/Api.js'
 function Form({ input, setInput, category, setCategory }) {
     const jwt = Cookies.get('jwt')
-    // let apiUrl = "http://localhost:5000/api";
-    // if (process.env.NODE_ENV === "production") {
-    //     apiUrl = '/api'
-    // }
     const onInputChange = (event) => {
         setInput(event.target.value)
     }

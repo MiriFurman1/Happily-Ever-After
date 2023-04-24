@@ -37,11 +37,6 @@ export default function SendEmails() {
 
 
 
-  // let apiUrl = "http://localhost:5000/api";
-  // if (process.env.NODE_ENV === "production") {
-  //   apiUrl = '/api'
-  // }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(image);
