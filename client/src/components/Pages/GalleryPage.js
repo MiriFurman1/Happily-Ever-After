@@ -14,7 +14,7 @@ function GalleryPage() {
   const [jwt] = useState(Cookies.get('jwt'));
   const [urlEncoded, setUrlEncoded] = useState(null)
   const [siteLink] = useState(window.location.href)
-  
+
   useEffect(() => {
     console.log(eventId);
     fetch(`${apiUrl}/gallery/${eventId}`, {
@@ -69,7 +69,7 @@ function GalleryPage() {
     let obj = {
       original: `${apiUrl}/images/${eventId}/${i}`,
       thumbnail: `${apiUrl}/images/${eventId}/${i}`,
-      originalWidth: "400"
+      originalHeight: "600px"
     }
     images.push(obj)
   }
