@@ -13,4 +13,4 @@ Happily Ever After is a web application that helps you manage your wedding prepa
 - react-image-gallery for displaying uploaded photos
 
 ## Live Demo
-A live demo of the application can be found at https://happily-ever-after.onrender.com/
+A live demo of the application can be found at https://happily-ever-after.netlify.app/
